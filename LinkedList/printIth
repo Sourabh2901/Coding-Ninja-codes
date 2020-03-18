@@ -1,0 +1,12 @@
+public static void printIth(LinkedListNode<Integer> head, int i){
+        LinkedListNode<Integer> temp = head;
+        int count = 0;
+        while(temp != null){
+            if(i == count){
+                System.out.println(temp.data);
+            }
+            count++;
+            temp = temp.next;
+        }
+		
+	}
