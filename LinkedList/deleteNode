@@ -1,0 +1,17 @@
+public static LinkedListNode<Integer> deleteIthNode(LinkedListNode<Integer> head, int i){
+		LinkedListNode<Integer> temp = head;
+        if(i == 0){
+            return temp.next;
+        }
+        int j=0;
+        while(j != i-1){
+            temp = temp.next;
+            j++;
+        }
+        
+        if(temp.next != null){
+            temp.next = temp.next.next;
+        }
+        return head;
+		
+	}
