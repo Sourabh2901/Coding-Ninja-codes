@@ -1,0 +1,19 @@
+public static LinkedListNode<Integer> append(LinkedListNode<Integer> root, int n) {
+
+        LinkedListNode<Integer> slow = root;
+        LinkedListNode<Integer> fast = root;
+        
+        for(int i=0;i<n;i++){
+            fast = fast.next;
+        }
+        
+        while(fast.next != null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        
+        LinkedListNode<Integer> temp = slow.next;
+        slow.next = null;
+        fast.next = root;
+        return temp;
+    }
