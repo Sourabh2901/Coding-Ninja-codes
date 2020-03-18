@@ -1,0 +1,9 @@
+public static int length(LinkedListNode<Integer> head){
+		LinkedListNode<Integer> temp = head;
+        int length = 0;
+        while(temp != null){
+            length++;
+            temp = temp.next;
+        }
+        return length;
+	}
