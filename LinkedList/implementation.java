@@ -52,6 +52,19 @@ public class LinkedListUse {
 		return head;
 	}
 	
+         private static Node<Integer> insertRecursively(Node<Integer> head, int data, int pos) {
+		if(pos == 0){
+			Node<Integer> newNode = new Node<>(data);
+			newNode.next = head;
+			return newNode;
+		}
+		if(head == null){
+			return null;
+		}
+		head.next = insertRecursively(head.next ,data ,pos-1);
+		return head;
+	}
+	
 	public static void main(String[] args) {
 		Node<Integer> head = takeInput();
 		print(head);
