@@ -1,0 +1,8 @@
+	public static void printReverseRecursive(LinkedListNode<Integer> root) {
+        LinkedListNode<Integer> temp = root;
+        if(root == null){
+            return;
+        }
+        printReverseRecursive(temp.next);       
+        System.out.print(root.data +" ");
+    }
