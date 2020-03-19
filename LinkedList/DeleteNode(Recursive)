@@ -1,0 +1,10 @@
+	public static LinkedListNode<Integer> deleteIthNodeRec(LinkedListNode<Integer> head, int i){
+		if(i == 0){
+            return head.next;
+        }
+        if(head == null){
+            return null;
+        }
+        head.next = deleteIthNodeRec(head.next ,i-1);
+        return head;
+	}
