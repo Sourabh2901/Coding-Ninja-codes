@@ -1,5 +1,7 @@
 	public static LinkedListNode<Integer> sortEvenOdd(LinkedListNode<Integer> head) {
-
+        if(head == null || head.next == null){
+	    return head;
+	}
         LinkedListNode<Integer> evenH = null;
         LinkedListNode<Integer> evenT = null;
         LinkedListNode<Integer> oddH = null;
