@@ -1,0 +1,39 @@
+	public static LinkedListNode<Integer> mergeTwoList(LinkedListNode<Integer> head1, LinkedListNode<Integer> head2) {
+        LinkedListNode<Integer> t1 = head1;
+        LinkedListNode<Integer> t2 = head2;
+        LinkedListNode<Integer> head = null;
+        LinkedListNode<Integer> tail = null;
+
+        if(t1.data > t2.data){
+            head = t2;
+            tail = t2;
+            t2 = t2.next;
+        }else{
+            head = t1;
+            tail = t1;
+            t1 = t1.next;
+        }
+        
+        while(t1 != null && t2 != null){
+            int x = t1.data;
+            int y = t2.data;
+            if(x < y){
+                tail.next = t1;
+                tail =tail.next;
+                t1 = t1.next;
+            }else{
+                tail.next = t2;
+                tail = tail.next;
+                t2 = t2.next;
+            }
+
+        }
+
+        if(t1 == null){
+            tail.next = t2;
+        }else if(t2 == null){
+            tail.next = t1;
+        }
+
+        return head;
+    }
