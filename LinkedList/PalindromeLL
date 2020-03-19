@@ -1,0 +1,45 @@
+	public static boolean isPalindrome_2(LinkedListNode<Integer> head) {
+        if(head == null || head.next == null){
+            return true;
+        }
+        
+        LinkedListNode<Integer> slow = head;
+        LinkedListNode<Integer> fast = head;
+        
+        while(fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        LinkedListNode<Integer> head2 = slow.next;
+        slow.next = null;
+        LinkedListNode<Integer> head1 = reverse(head);
+        
+        while(head1 != null || head2 != null){
+            if(head1.data.equals(head2.data)){
+                head1 = head1.next;
+                head2 = head2.next;
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    private static LinkedListNode<Integer> reverse(LinkedListNode<Integer> head){
+        if(head == null){
+            return null;
+        }
+        LinkedListNode<Integer> ptr = head;
+        LinkedListNode<Integer> prev = null;
+        LinkedListNode<Integer> next = null;
+        
+        while(ptr != null){
+            next = ptr.next;
+            ptr.next = prev;
+            prev = ptr;
+            ptr = next;
+        }
+        head = prev;
+        return head;
+    }
