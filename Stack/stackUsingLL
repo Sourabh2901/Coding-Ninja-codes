@@ -1,0 +1,51 @@
+class StackEmptyException extends Exception{
+    
+}
+
+public class Stack<T> {
+	private Node<T> top = null;
+    private int size = 0;
+    
+	public Stack() {
+        top = null;
+        size = 0;
+	}
+	
+	public int size() {
+        return size;
+	}
+	
+	public void push(T data) {
+ 
+        Node<T> newnode = new Node<>(data);
+        if(top == null){
+            top = newnode;
+        }else{
+            newnode.next = top;
+            top = newnode;
+        }
+        size++;
+	}
+	
+	public boolean isEmpty() {
+        return size==0;
+	}
+	
+	public T pop() throws StackEmptyException {
+
+        T temp = top.data;
+        top = top.next;
+        if(top == null){
+            throw new StackEmptyException();
+        }
+        size--;
+        return temp;
+	}
+	
+	public T top() throws StackEmptyException {
+         if(top == null){
+            throw new StackEmptyException();
+        }
+        return top.data;
+	}
+}
