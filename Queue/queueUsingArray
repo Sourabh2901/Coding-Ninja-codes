@@ -1,0 +1,106 @@
+import java.lang.Exception;
+
+class queueEmptyException extends Exception{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7038524402569280904L;
+	
+}
+
+public class queueUsingArray {
+
+	private int data[];
+	private int front;
+	private int rear;
+	private int size;
+	
+	queueUsingArray(){
+		front = -1;
+		rear =  -1;
+		size = 0;
+		data = new int[10];
+	}
+	
+	queueUsingArray(int capacity){
+		front = -1;
+		rear = -1;
+		size =  0;
+		data = new int[capacity];
+	}
+	
+	public void enqueue(int elem){
+		if(size == data.length){
+		     doubleCapacity();
+		}		
+		if(size == 0){
+			front++;
+		}
+		rear++;
+		size++;
+		if(rear == data.length){
+			rear = 0;
+		}
+		data[rear] = elem;
+	}
+
+	public int dequeue() throws queueEmptyException{
+		if(size == 0){
+			throw new queueEmptyException();
+		}
+		
+		int temp = data[front];
+		front++;
+		if(front == data.length){
+			front = 0;
+		}
+		size--;
+		if(size == 0){
+			front = -1;
+			rear = -1;
+		}
+		return temp;
+	}
+	
+	private void doubleCapacity() {
+		int temp [] = data;
+		data = new int[temp.length * 2];
+		int index = 0;
+		for(int i=front;i<temp.length;i++){
+			data[index] = temp[i];
+			index++;
+		}
+		for(int i=0;i<front-1;i++){
+			data[index] = temp[i];
+		}
+		front = 0;
+		rear = temp.length-1;
+	}
+	
+	public int size(){
+		return size;
+	}
+	
+	public boolean isEmpty(){
+		return size==0;
+	}
+	
+	public int front() throws queueEmptyException{
+		if(size == 0){
+			throw new queueEmptyException();
+		}
+		return data[front];
+	}
+	
+	public static void main(String[] args) throws queueEmptyException {
+		queueUsingArray queue = new queueUsingArray();
+		for(int i=1;i<=5;i++){
+			queue.enqueue(i);
+		}
+		
+		while(!queue.isEmpty()){
+			System.out.println(queue.dequeue());
+		}
+	}
+}
