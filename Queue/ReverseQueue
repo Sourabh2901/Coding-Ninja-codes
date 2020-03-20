@@ -1,0 +1,8 @@
+	public static void reverseQueue(Queue<Integer> q) {
+		if(q.size() == 0){
+            return;
+        }
+        int x = q.dequeue();
+        reverseQueue(q);
+        q.enqueue(x);
+	}
