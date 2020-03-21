@@ -1,0 +1,54 @@
+  class DoubleNode{
+        LinkedListNode<Integer> head;
+        LinkedListNode<Integer> tail;
+    }
+
+
+public class Solution {
+    public static LinkedListNode<Integer> kReverse(LinkedListNode<Integer> head, int k) {
+        if(head == null){
+            return head;
+        }
+
+        LinkedListNode<Integer> head1 = head;
+        LinkedListNode<Integer> tail1 = head;
+        LinkedListNode<Integer> head2 = null;;
+
+        int count = 1;
+        while(count < k && tail1.next != null){
+            tail1 = tail1.next;
+            count++;
+        }
+        head2 = tail1.next;
+        tail1.next = null;
+        
+        DoubleNode obj = reverse(head1);
+        
+        head1 = obj.head;
+        tail1 = obj.tail;
+        
+        head2 = kReverse(head2,k);
+        
+        tail1.next = head2;
+        return head1;
+       
+    }
+    
+    
+    private static DoubleNode reverse(LinkedListNode<Integer> head){
+        if(head == null || head.next == null){
+            DoubleNode obj = new DoubleNode();
+            obj.head = head;
+            obj.tail = head;
+            return obj;
+        }
+       
+        DoubleNode ans = reverse(head.next);
+
+        ans.tail.next = head;
+        head.next = null;
+        ans.tail = ans.tail.next;
+        
+        return ans;
+    }
+}
