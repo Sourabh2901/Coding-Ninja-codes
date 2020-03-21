@@ -1,0 +1,43 @@
+public class Solution {
+
+	public static LinkedListNode<Integer> bubbleSort(LinkedListNode<Integer> head )
+	{
+        for(int i=0;i<lengthLL(head)-1;i++){
+            LinkedListNode<Integer> prev = null;
+            LinkedListNode<Integer> curr = head;
+            LinkedListNode<Integer> next = curr.next;
+
+            while(curr.next != null){
+                if(curr.data <= curr.next.data){
+                    prev = curr;
+                    curr = curr.next;
+                }else{
+                    //Swap
+                    if(prev == null){
+                        curr.next = next.next;
+                        next.next = curr;
+                        prev = next;
+                        head = prev;
+                    }else{
+                        next = curr.next;
+                        prev.next = next;
+                        curr.next = next.next;
+                        next.next = curr;
+                        prev = next;
+                    }        
+                }
+            }
+            
+        }
+        return head;
+    }
+    
+     private static int lengthLL(LinkedListNode<Integer> head){
+        int count = 0;
+        while(head != null){
+            head = head.next;
+            count++;
+        }
+        return count;
+    }
+}
