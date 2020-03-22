@@ -13,8 +13,20 @@ public class TreeimplemetationRecursion {
 		TreeNode<Integer> root = takeInput(s);
 		 root = takeInputLevelWise();
 		print(root);
+		System.out.println("No of nodes "+numNodes(root));
 
 	}
+	
+		private static int numNode(TreeNode<Integer> root) {
+		if(root == null){
+		return 0;
+		}
+		int count = 0;
+		for(int i=0;i<root.children.size();i++){
+			count += numNode(root.children.get(i));
+		}
+		return count + 1;
+	        }
 
 	private static TreeNode<Integer> takeInputLevelWise() {
 		Queue<TreeNode<Integer>> queue = new LinkedList<>();
