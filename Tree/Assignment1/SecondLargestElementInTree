@@ -1,0 +1,86 @@
+
+public class Solution {
+
+/*	TreeNode structure 
+ * 
+ * class TreeNode<T> {
+		T data;
+		ArrayList<TreeNode<T>> children;
+
+		TreeNode(T data){
+			this.data = data;
+			children = new ArrayList<TreeNode<T>>();
+		}
+	}*/
+	
+		
+	
+	public static TreeNode<Integer> findSecondLargest(TreeNode<Integer> root){
+     
+        if(root == null){
+            return null;
+        }
+        
+        DoubleNode ans = helper(root);
+        return ans.Smax;
+	}
+    
+    public static DoubleNode helper(TreeNode<Integer> root){
+        DoubleNode ans = new DoubleNode();
+        ans.max = root;
+        ans.Smax = null;
+        
+        for(int i=0;i<root.children.size();i++){
+            DoubleNode temp = helper(root.children.get(i));
+            
+            if(ans.max.data == temp.max.data){
+                if(temp.Smax != null){
+                    ans.Smax = temp.Smax;
+                }
+            }       
+            else if(ans.max.data > temp.max.data){
+                if(ans.Smax == null || temp.Smax == null){
+                    ans.Smax = temp.max;
+                }
+                if(ans.Smax.data <= temp.max.data){
+                    ans.Smax = temp.max;
+                }
+                
+            }
+            else{
+                TreeNode<Integer> tempnode = ans.max;
+                ans.max = temp.max;
+                
+                if(ans.Smax == null && temp.Smax == null){
+                    ans.Smax = tempnode;
+                  //  ans.Smax.data = temp.max.data;
+                }else if(ans.Smax == null){
+                    if(tempnode.data <= temp.Smax.data){
+                        ans.Smax = temp.Smax;
+                    }else{
+                        ans.Smax = tempnode;
+                    }
+                }else if(temp.Smax == null){
+                    ans.Smax = tempnode; 
+                }else {
+                    if(tempnode.data >= temp.Smax.data){
+                        ans.Smax = tempnode;
+                    }else{
+                        ans.Smax = temp.Smax;
+                    }
+                }
+                
+            }
+            
+        }
+        
+        return ans;
+    }
+	
+	
+}
+
+class DoubleNode{
+    TreeNode<Integer> max;
+    TreeNode<Integer> Smax;
+}
