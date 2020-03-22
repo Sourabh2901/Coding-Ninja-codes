@@ -1,0 +1,47 @@
+class pair{
+    int sum = 0;
+    TreeNode<Integer> node;
+}
+public class Solution {
+
+/*	TreeNode structure 
+ * 
+ * class TreeNode<T> {
+		T data;
+		ArrayList<TreeNode<T>> children;
+
+		TreeNode(T data){
+			this.data = data;
+			children = new ArrayList<TreeNode<T>>();
+		}
+	}*/
+	
+	
+	public static TreeNode<Integer> maxSumNode(TreeNode<Integer> root){
+		// Write your code here
+    
+        pair ans = helper(root);
+        return ans.node;
+	}
+    
+    public static pair helper(TreeNode<Integer> root){
+        pair obj = new pair();
+        int sum = root.data;
+        for(int i=0;i<root.children.size();i++){
+            sum += root.children.get(i).data;
+        }
+        obj.sum = sum;
+        obj.node = root;
+        for(int i=0;i<root.children.size();i++){
+            pair temp = helper(root.children.get(i));
+
+            if(temp.sum > obj.sum){
+                obj.sum = temp.sum;
+                obj.node = temp.node;
+            }
+        }
+        return obj;
+    }
+	
+		
+}
