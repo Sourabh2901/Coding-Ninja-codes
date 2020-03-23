@@ -1,0 +1,29 @@
+public class Solution {
+
+/*	Binary Tree Node class
+ * 
+ * class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+		
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	*/
+    
+	public static int height(BinaryTreeNode<Integer> root) {
+		if(root == null){
+            return 0;
+        }
+        
+        int height = 1;
+        
+        int leftheight = height(root.left);
+        int rightheight = height(root.right);
+        
+        return height + Math.max(leftheight,rightheight);
+	}
+	
+}
