@@ -1,0 +1,53 @@
+class pair<T,V>{
+    T first;
+    V second;
+}
+
+public class Solution {
+
+/*	Binary Tree Node class
+ * 
+ * class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+		
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	*/
+	
+	public static boolean checkBalanced(BinaryTreeNode<Integer> root){
+        pair<Integer,Boolean> ans = helper(root);
+        return ans.second;
+	}
+    
+    private static pair<Integer,Boolean> helper(BinaryTreeNode<Integer> root){
+        if(root == null){
+            pair<Integer,Boolean> output = new pair<>();
+            output.first = 0;
+            output.second = true;
+            return output;
+        }
+        
+        pair<Integer,Boolean> leftOutput = helper(root.left);
+        pair<Integer,Boolean> rightOutput = helper(root.right);
+        
+        int LH = leftOutput.first;
+        int RH = rightOutput.first;
+        int temp = LH - RH;
+        int height = 1 + Math.max(LH,RH);
+        boolean ans;
+        if(Math.abs(temp) > 1 || !leftOutput.second || !rightOutput.second){
+            ans = false;
+        }else{
+           ans = true;
+        }
+        pair<Integer,Boolean> output = new pair<>();
+            output.first = height;
+            output.second = ans;
+        return output;
+    }
+    
+}
