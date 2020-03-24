@@ -1,0 +1,69 @@
+
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.Collections;
+
+public class Solution {
+
+	/*	Binary Tree Node class
+	 * 
+	 * class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	 */
+
+	public static void printZigZag(BinaryTreeNode<Integer> root) {
+		Queue<BinaryTreeNode<Integer>> queue = new LinkedList<>();
+        ArrayList<BinaryTreeNode<Integer>> list = new ArrayList<>();
+        queue.add(root);
+        queue.add(null);
+        int level = 1;
+        
+        while(!queue.isEmpty()){
+            BinaryTreeNode<Integer> front = queue.remove();
+            if(front == null){
+                if(queue.isEmpty()){
+                    if(level % 2 == 0){
+                        Collections.reverse(list);
+                        for(int i=0;i<list.size();i++){
+                            System.out.print(list.get(i).data+" ");
+                        }
+                    }
+                    break;
+                }else{
+                    if(level % 2 == 0){
+                        Collections.reverse(list);
+                        for(int i=0;i<list.size();i++){
+                            System.out.print(list.get(i).data+" ");
+                        }
+                    }               
+                    level++;
+                    queue.add(null);
+                    System.out.println();
+                    list = new ArrayList<>();
+                }
+            }else{
+                if(level % 2 != 0){
+                    System.out.print(front.data+" ");
+                }else{
+                    list.add(front);
+                }
+                
+                if(front.left != null){
+                    queue.add(front.left);
+                }
+                if(front.right != null){
+                    queue.add(front.right);
+                }
+            }
+            
+        }
+	}
+}
