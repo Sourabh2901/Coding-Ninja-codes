@@ -1,0 +1,50 @@
+public class Solution {
+
+	/*	Binary Tree Node class
+	 * 
+	 * class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	 */
+
+	public static BinaryTreeNode<Integer> getTreeFromPostorderAndInorder(int[] post,
+			int[] in){
+		return helper(post ,in ,0 ,post.length - 1 , 0 ,in.length - 1);
+	}
+    
+    private static BinaryTreeNode<Integer> helper(int post[] ,int in[] ,int postS ,int postE ,int inS ,int inE){
+          if(inS > inE || postS > postE){
+            return null;
+        }
+        
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(post[postE]);
+        
+        int i = inS;
+        for( ;i<inE;i++){
+            if(post[postE] == in[i])
+                break;
+
+        }
+        
+        int inLeftS = inS;
+        int inLeftE = i - 1;
+        int inRightS = i + 1;
+        int inRightE = inE;
+        
+        int postLeftS = postS;
+        int postLeftE = inLeftE - inLeftS + postLeftS;
+        int postRightS = postLeftE + 1;
+        int postRightE = postE - 1;
+
+        root.left = helper(post,in,postLeftS,postLeftE,inLeftS,inLeftE);
+        root.right = helper(post,in,postRightS,postRightE,inRightS,inRightE);
+        
+        return root;
+    }   
+}
