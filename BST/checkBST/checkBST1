@@ -1,0 +1,68 @@
+
+public class Solution {
+
+	public static boolean isBST(BinaryTreeNode<Integer> root) {
+		if(root == null){
+		return true;
+        }      
+
+        int max = maximum(root.left);
+        int min = minimum(root.right);
+
+        if(root.data < max){
+            return false;
+        }
+        if(root.data > min){
+            return false;
+        }
+        
+        boolean leftans = isBST(root.left);
+        boolean rightans = isBST(root.right);
+        
+        if(leftans && rightans){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+
+    public static int maximum(BinaryTreeNode<Integer> root){
+        if(root == null){
+            return Integer.MIN_VALUE;
+        }
+        
+        int max = root.data;
+        
+        int left = maximum(root.left);
+        int right = maximum(root.right);
+        
+        if(left > max){
+            max  = left;
+        }
+        if(right > max){
+            max = right;
+        }
+        return max;
+    }
+
+    public static int minimum(BinaryTreeNode<Integer> root){
+
+        if(root == null){
+            return Integer.MAX_VALUE;
+        }
+
+        int min = root.data;
+
+        int left = minimum(root.left);
+        int right = minimum(root.right);
+
+        if(left < min){
+            min  = left;
+        }
+        if(right < min){
+            min = right;
+        }
+
+        return min;
+    }
