@@ -1,0 +1,62 @@
+class pair{
+    boolean ans;
+    int leftmax;
+    int rightmin;
+}
+public class Solution {
+
+	public static boolean isBST(BinaryTreeNode<Integer> root) {
+        pair ansx = helper(root);   
+        return ansx.ans;
+    }
+    
+    public static pair helper(BinaryTreeNode<Integer> root){
+        if(root == null){
+            pair output = new pair();
+            output.ans = true;
+            output.rightmin = Integer.MAX_VALUE;
+            output.leftmax = Integer.MIN_VALUE;
+		    return output;
+        }      
+        
+        pair left  = helper(root.left);
+        pair right = helper(root.right);
+        
+        pair output = new pair();
+        
+        output.ans = true;
+        output.leftmax = root.data;
+        output.rightmin = root.data;
+        
+        if(output.leftmax < left.leftmax){
+            output.ans = false;
+            output.leftmax = left.leftmax;
+            return output;
+        }
+        if(output.rightmin > right.rightmin){
+            output.ans = false;
+            output.rightmin = right.rightmin;
+            return output;
+        }
+        
+        if(left.leftmax > output.leftmax){
+            output.leftmax = left.leftmax;
+        }
+        
+        if(right.rightmin < output.rightmin){
+            output.rightmin = right.rightmin;
+        }
+        
+        
+        if(left.ans==true && right.ans ==true){
+            return output;
+        }else{
+            output.ans = false;
+            return output;
+        }
+        
+    }
+    
+
+    
+}
