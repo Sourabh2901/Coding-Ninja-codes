@@ -1,0 +1,38 @@
+public class Solution {
+
+/*	Binary Tree Node class
+ * 
+ * class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+		
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	*/
+
+	public static int lcaBinaryTree(BinaryTreeNode <Integer> root , int a, int b){
+		if(root == null){
+            return -1;
+        }
+        
+        if(root.data == a || root.data == b){
+            return root.data;
+        }
+       
+        int left = lcaBinaryTree(root.left ,a ,b);
+        int right = lcaBinaryTree(root.right ,a ,b);
+        
+        if(left == -1 && right == -1){
+            return -1;
+        }else if(left == -1 && right != -1){
+            return right;
+        }else if(left != -1 && right == -1){
+            return left;
+        }else{
+            return root.data;
+        }
+	}
+}
