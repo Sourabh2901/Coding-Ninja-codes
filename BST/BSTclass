@@ -1,0 +1,163 @@
+/***************
+ * BinaryTreeNode class already given - 
+ * 
+class BinaryTreeNode<T> {
+	T data;
+	BinaryTreeNode<T> left;
+	BinaryTreeNode<T> right;
+
+	public BinaryTreeNode(T data) {
+		this.data = data;
+	}
+}
+***************/
+
+/**************
+ * Main function that we are using internally 
+ * 
+public static void main(String[] args) {
+		BinarySearchTree bst = new BinarySearchTree();
+		int choice, input;
+		while(true) {
+			choice = s.nextInt();
+			switch(choice) {
+				case 1 : 
+					input = s.nextInt();
+					bst.insertData(input);
+					break;
+				case 2 : 
+					input = s.nextInt();
+					bst.deleteData(input);
+					break;
+				case 3 : 
+					input = s.nextInt();
+					System.out.println(bst.search(input));
+					break;
+				default :
+					bst.printTree();
+					return;
+			}
+
+		}
+*******************/
+
+public class BinarySearchTree {
+	// Complete this class
+    private static BinaryTreeNode<Integer> root = null;
+    
+    public boolean search(int data){
+        return search(root ,data);
+    }
+    
+    public boolean search(BinaryTreeNode<Integer> root ,int data){
+        if(root == null){
+            return false;
+        }
+        if(root.data == data){
+            return true;
+        }else if(data < root.data){
+            return search(root.left ,data);
+        }else{
+            return search(root.right ,data);
+        }     
+    }
+    
+    public void insertData(int data){
+        BinaryTreeNode<Integer> ans = insert(root , data);
+        this.root = ans;
+    }
+    
+    public static BinaryTreeNode<Integer> insert(BinaryTreeNode<Integer> root,int data){
+        if(root == null){
+            BinaryTreeNode<Integer> newnode = new BinaryTreeNode<>(data);
+            return newnode;
+        }else{
+            if(data < root.data){
+                BinaryTreeNode<Integer> left = insert(root.left,data);
+                root.left = left;
+                return root;
+            }else if(data >= root.data){
+                BinaryTreeNode<Integer> right = insert(root.right,data);
+                root.right = right;
+                return root;
+            }
+        } 
+        return root;
+    }
+    
+    public void deleteData(int data){
+        root = deletehelper(root,data);
+    }
+    
+    public static int minimum(BinaryTreeNode<Integer> root){
+        if(root == null){
+            return Integer.MAX_VALUE;
+        }
+        int left = minimum(root.left);
+        int right = minimum(root.right);
+        
+        int ans = Math.min(root.data,Math.min(left,right));
+        return ans;
+    }
+
+    public static BinaryTreeNode<Integer> deletehelper(BinaryTreeNode<Integer> root ,int data){
+        if(root == null){
+            return null;
+        }
+
+        if(data == root.data){
+            if(root.left == null && root.right == null){
+                return null;
+            }else if(root.right == null){
+                return root.left;
+            }else if(root.left == null){
+                return root.right;
+            }else{
+               BinaryTreeNode<Integer> minnode = root.right;
+                while(minnode.left != null){
+                    minnode = minnode.left;
+                }
+                root.data = minnode.data;
+                BinaryTreeNode<Integer> ans = deletehelper(root.right, minnode.data);
+                root.right = ans;
+                return root;
+            }
+        }else if(data < root.data){
+            BinaryTreeNode<Integer> left = deletehelper(root.left , data);
+            root.left = left;
+            return root;
+        }else{
+            BinaryTreeNode<Integer> right = deletehelper(root.right , data);
+            root.right = right;
+            return root;
+        }	
+    }
+
+
+    public static void printTree(){
+
+        if(root == null){
+            return;
+        }
+        printTree(root);
+    }
+
+    public static void printTree(BinaryTreeNode<Integer> root){
+        if(root == null){
+            return;
+        }
+        String str = root.data+":";
+        if(root.left != null){
+            str = str +"L:"+ root.left.data+",";
+        }
+
+        if(root.right != null){
+            str = str +"R:"+ root.right.data;
+        }
+
+        System.out.println(str);
+        printTree(root.left);
+        printTree(root.right);
+    }
+
+}
