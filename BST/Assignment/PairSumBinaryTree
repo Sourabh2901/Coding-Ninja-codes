@@ -1,0 +1,67 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Solution {
+
+/*	Binary Tree Node class
+ * 
+ * class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+		
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	*/
+
+	public static void nodesSumToS(BinaryTreeNode<Integer> root, int sum) {        
+        ArrayList<Integer> arr = makeArray(root);
+    
+        Collections.sort(arr);
+
+        int i=0;
+        int j=arr.size() - 1;
+
+        while(i<j){
+            int x = arr.get(i) + arr.get(j);
+            if(x == sum){
+                System.out.println(arr.get(i)+" "+arr.get(j));
+                i++;
+                j--;
+            }else if(x > sum){
+                j--;
+            }else if(x < sum){
+                i++;
+            }
+        }
+	}
+    
+    private static ArrayList<Integer> makeArray(BinaryTreeNode<Integer> root){
+        if(root == null){
+            return null;
+        }
+        
+        ArrayList<Integer> left = makeArray(root.left);
+        
+        ArrayList<Integer> output = new ArrayList<>();
+        if(left != null){
+            for(int i=0;i<left.size();i++){
+                output.add(left.get(i));
+            }
+        }
+        
+        output.add(root.data);
+        
+        ArrayList<Integer> right = makeArray(root.right);
+        
+        if(right != null){
+            for(int i=0;i<right.size();i++){
+                output.add(right.get(i));
+            }
+        }
+        return output;
+    }
+    
+}
