@@ -1,0 +1,30 @@
+import java.util.HashMap;
+
+public class Intersection{
+	
+	public static void intersection(int[] arr1, int[] arr2){
+        HashMap<Integer,Integer> map1 = new HashMap<>();
+        
+		for(int i:arr1){
+            if(map1.containsKey(i)){
+                int value = map1.get(i) + 1;
+                map1.put(i,value);
+            }else{
+                map1.put(i,1);
+            }
+        }
+
+        for(int i:arr2){
+            if(map1.containsKey(i)){
+                System.out.println(i);
+                if(map1.get(i) == 1){
+                    map1.remove(i);
+                }else{
+                    int value = map1.get(i) - 1;
+                    map1.put(i,value);
+                }
+            }     
+        }
+        
+    }
+}
