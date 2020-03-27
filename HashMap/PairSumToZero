@@ -1,0 +1,39 @@
+import java.util.*;
+
+public class Solution {
+    public static void PairSum(int[] input, int size) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+
+        for(int i:input){
+            if(map.containsKey(i)){
+                int value = map.get(i) + 1;
+                map.put(i,value);
+            }else{
+                map.put(i,1);
+            }
+        }
+        
+        for(int i:input){
+            int req = -i;
+            if(map.containsKey(req)){
+                int pairs = map.get(req);
+                
+                for(int j=0;j<pairs;j++){
+                    if(i > req){
+                        System.out.println(req +" "+i);
+                    }else{
+                        System.out.println(i +" "+ req);
+                    }        
+                }
+                
+                if(map.get(i) == 1){
+                    map.remove(i);
+                }else{
+                    int value = map.get(i) - 1;
+                    map.put(i,value);
+                }
+                
+            }
+        }
+                
+    }
