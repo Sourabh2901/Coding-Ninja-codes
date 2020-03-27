@@ -1,0 +1,37 @@
+public class Solution {
+
+/*	Binary Tree Node class
+ * 
+ * class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+		
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	*/
+	
+	public static void rootToLeafPathsSumToK(BinaryTreeNode<Integer> root, int k) {
+        
+		helper(root ,k ,"");
+	}
+    
+    private static void helper(BinaryTreeNode<Integer> root ,int k ,String output){
+        if(root == null){
+            return;
+        }
+        
+        if(root.left == null && root.right == null){
+            if(k == root.data){
+                 System.out.println(output + root.data);
+            }else{
+                return;
+            }
+        }
+        
+        helper(root.left ,k - root.data ,output + root.data +" ");
+        helper(root.right ,k - root.data ,output + root.data + " ");   
+    }
+}
