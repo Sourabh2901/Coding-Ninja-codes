@@ -1,0 +1,21 @@
+import java.util.HashMap;
+
+public class solution {
+
+	public static String uniqueChar(String str){
+		String ans = "";
+        HashMap<Character,Integer> map = new HashMap<>();
+        while(str.length() != 0){
+            char ch = str.charAt(0);
+            if(map.containsKey(ch)){
+                str = str.substring(1);
+                continue;
+            }else{
+                map.put(ch,1);
+                ans += ch;
+                str = str.substring(1);
+            }
+        }
+        return ans;
+	}
+}
