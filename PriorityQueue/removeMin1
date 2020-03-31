@@ -1,0 +1,135 @@
+import java.util.ArrayList;
+
+/*****************
+* Main function - 
+*
+	public static void main(String[] args) {
+		PQ pq = new PQ();
+		int choice = s.nextInt();
+		while(choice != -1) {
+			switch(choice) {
+				case 1 : // insert
+					int element = s.nextInt();
+					pq.insert(element);
+					break;
+				case 2 : // getMin
+				try {
+					System.out.println(pq.getMin());
+				} catch (PriorityQueueException e) {
+					return;
+				}
+					break;
+				case 3 : // removeMin
+				try {
+					System.out.println(pq.removeMin());
+				} catch (PriorityQueueException e) {
+					return;
+				}
+					break;
+				case 4 : // size
+					System.out.println(pq.size());
+					break;
+				case 5 : // isEmpty
+					System.out.println(pq.isEmpty());
+				default :
+						return;
+			}
+			choice = s.nextInt();
+		}
+	}
+*******************/
+
+class PriorityQueueException extends Exception {
+
+}
+
+public class PQ {
+
+	private ArrayList<Integer> heap;
+
+	public PQ() {
+		heap = new ArrayList<Integer>();
+	}
+
+	boolean isEmpty(){
+		return heap.size() == 0;
+	}
+
+	int size(){
+		return heap.size();
+	}
+
+	int getMin() throws PriorityQueueException{
+		if(isEmpty()){
+			// Throw an exception
+			throw new PriorityQueueException();
+		}
+		return heap.get(0);
+	}
+
+	void insert(int element){
+		heap.add(element);
+		int childIndex = heap.size() - 1;
+		int parentIndex = (childIndex - 1) / 2;
+
+		while(childIndex > 0){
+			if(heap.get(childIndex) < heap.get(parentIndex)){
+				int temp = heap.get(childIndex);
+				heap.set(childIndex, heap.get(parentIndex));
+				heap.set(parentIndex, temp);
+				childIndex = parentIndex;
+				parentIndex = (childIndex - 1) / 2;
+			}else{
+				return;
+			}
+		}
+	}
+
+    public int removeMin() throws PriorityQueueException{
+        if(heap.isEmpty()){
+            throw new PriorityQueueException();
+        }
+        int elem = heap.get(0);
+        int temp = heap.get(heap.size() - 1);
+
+        heap.set(0, temp);
+        heap.remove(heap.size() - 1);
+        int parent = 0;
+        int leftChild = parent*2 + 1;
+        int rightChild = parent*2 + 2;
+
+        while(leftChild < heap.size() && rightChild < heap.size()){
+            if(heap.get(leftChild) < heap.get(rightChild) && heap.get(leftChild) < heap.get(parent)){
+                int x = heap.get(parent);
+                heap.set(parent, heap.get(leftChild));
+                heap.set(leftChild, x);
+
+                parent = leftChild;
+                leftChild = parent*2 + 1;
+                rightChild = parent*2 + 2;
+            }else if(heap.get(leftChild) > heap.get(rightChild) && heap.get(rightChild) < heap.get(parent)){
+                int x = heap.get(parent);
+                heap.set(parent, heap.get(rightChild));
+                heap.set(rightChild, x);
+
+				parent = rightChild;
+				leftChild = parent*2 + 1;
+				rightChild = parent*2 + 2;
+			}else{
+				break;
+			}
+		}
+		
+		if(leftChild < heap.size() && heap.get(leftChild) < heap.get(parent)){
+			int x = heap.get(parent);
+			heap.set(parent, heap.get(leftChild));
+			heap.set(leftChild, x);
+
+			parent = leftChild;
+			leftChild = parent*2 + 1;
+			rightChild = parent*2 + 2;
+		}
+
+		return elem;
+	}
+}
