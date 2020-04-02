@@ -1,0 +1,23 @@
+public class ArrayRotate {	
+
+	public static void rotate(int[] arr, int d) {
+
+        int temp[] = new int[arr.length];
+        int rot = d % arr.length;
+        
+        int j=0;
+        for(int i=rot;i<arr.length;i++){
+            temp[j++] = arr[i];
+        }
+        
+        int i=0;
+        for( ;j<arr.length;j++){
+            temp[j] = arr[i++];
+        }
+        
+        for(j=0;j<arr.length;j++){
+            arr[j] = temp[j];
+        }
+
+	}
+}
