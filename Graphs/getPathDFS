@@ -1,0 +1,45 @@
+import java.util.Scanner;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        int V = s.nextInt();
+        int E = s.nextInt();
+
+        int edges[][] = new int[V][V];
+        for(int i=0;i<E;i++){
+            int sv = s.nextInt();
+            int ev = s.nextInt();
+            edges[sv][ev] = 1;
+            edges[ev][sv] = 1;
+        }
+
+        int v1 = s.nextInt();
+        int v2 = s.nextInt();
+
+        boolean visited[] = new boolean[edges.length];
+        String ans = getPath(edges,v1,v2,visited);
+        if(ans != null)
+            System.out.println(ans);
+    }
+
+    private static String getPath(int edges[][],int sv,int ev, boolean visited[]){
+        if(sv == ev){
+            String str = sv+" ";
+            return str;
+        }
+        visited[sv] = true;
+        
+        for(int i=0;i<edges.length;i++){
+            if(edges[sv][i] == 1 && !visited[i]){
+               String ans = getPath(edges,i,ev,visited);
+                if(ans != null){
+                    ans = ans + sv +" ";
+                    return ans;
+                }
+            }
+        }
+        return null;
+    }    
+}
