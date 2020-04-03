@@ -1,0 +1,57 @@
+import java.util.Scanner;
+import java.util.Queue;
+import java.util.LinkedList;
+
+public class Solution {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int V = s.nextInt();
+		int E = s.nextInt();
+
+		/* Write Your Code Here
+		 * Complete the Rest of the Program
+		 * You have to take input and print the output yourself
+		 */
+        
+        int edges[][] = new int[V][V];
+        for(int i=0;i<E;i++){
+            int sv = s.nextInt();
+            int ev = s.nextInt();
+            edges[sv][ev] = 1;
+            edges[ev][sv] = 1;
+        }
+        
+        BFS(edges);   
+	}
+
+    private static void BFS(int[][] edges) {
+        boolean visited[] = new boolean[edges.length];
+
+        for(int i=0;i<edges.length;i++){
+            if(!visited[i]){
+                bfshelper(edges,i,visited);
+            }
+        }
+
+    }
+
+    private static void bfshelper(int[][] edges, int sv, boolean[] visited) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(sv);
+        visited[sv] = true;
+       
+        
+        while(!queue.isEmpty()){
+            int front = queue.remove();
+            System.out.print(front+" ");
+            for(int i=0;i<edges.length;i++){
+                if(edges[front][i] == 1 && !visited[i]){
+                    queue.add(i);
+                    visited[i] = true;
+                }
+            }
+        }
+   
+    }
+}
