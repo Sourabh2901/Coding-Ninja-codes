@@ -1,0 +1,61 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.HashMap;
+
+public class Solution {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int V = s.nextInt();
+		int E = s.nextInt();
+
+		int edges[][] = new int[V][V];
+        for(int i=0;i<E;i++){
+            int sv = s.nextInt();
+            int ev = s.nextInt();
+            edges[sv][ev] = 1;
+            edges[ev][sv] = 1;
+        }
+        int v1 = s.nextInt();
+        int v2 = s.nextInt();
+        boolean visited [] = new boolean[V];
+        BFS(edges,v1,v2,visited);
+	}
+    
+    private static void BFS(int edges[][] ,int sv ,int ev ,boolean visited[]){
+        Queue<Integer> queue = new LinkedList<>();
+        HashMap<Integer,Integer> map = new HashMap<>();
+        
+        queue.add(sv);
+        visited[sv] = true;
+        int flag = 0;
+        
+        while(queue.size() != 0){
+            int front = queue.remove();
+            
+            for(int i=0;i<edges.length;i++){
+                if(edges[front][i] == 1 && !visited[i]){
+                    queue.add(i);
+                    visited[i] = true;
+                    map.put(i,front);
+                    if(i == ev){
+                        flag = 1;
+                        break;
+                    }
+                }
+            }    
+        }
+
+        if(flag == 1){
+            String str = ev + " ";
+            while(map.get(ev) != sv){
+                str += map.get(ev)+" ";
+                ev = map.get(ev);
+            }
+            str += map.get(ev);
+            System.out.println(str);
+        }
+    }
+}
