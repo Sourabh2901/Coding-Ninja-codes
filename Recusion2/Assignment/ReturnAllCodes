@@ -1,0 +1,56 @@
+public class solution {
+
+	// Return a string array that contains all possible codes
+	public static  String[] getCode(String input){
+		// Write your code here
+        if(input.length() == 0){
+            String y[] = new String[1];
+            y[0] = "";
+            return y;
+        }
+        
+        String [] temp1 = getCode(input.substring(1));
+
+        int no = input.charAt(0) - '0';
+        char ch1 = helper(no);
+
+        for(int i=0;i<temp1.length;i++){
+            temp1[i] = ch1 + temp1[i];
+        }
+
+        String temp2[] = new String[0];
+        if(input.length() >= 2){
+            int no1 = input.charAt(0) - '0';
+            int no2 = input.charAt(1) - '0';
+            int no3 = no1 * 10 + no2;
+            if(no3 >= 10 && no3 <= 26){
+                char ch2 = helper(no3);
+                temp2 = getCode(input.substring(2));
+                for(int j=0;j<temp2.length;j++){
+                    temp2[j] = ch2 + temp2[j];
+                }
+            }
+        }
+
+        String[] ans = new String[temp1.length + temp2.length];
+
+        int k=0;
+        for(int i=0;i<temp1.length;i++){
+            ans[k] = temp1[i];
+            k++;
+        }
+        
+        for(int j=0;j<temp2.length;j++){
+            ans[k] = temp2[j];
+            k++;
+        }
+        
+		return ans;
+    }
+
+    private static char helper(int n){
+        char ch = (char)('a' + n - 1);
+        return ch;
+    }
+
+}
