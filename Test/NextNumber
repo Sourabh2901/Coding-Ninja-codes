@@ -1,0 +1,68 @@
+/*************** 
+ * Following is the Node class already written 
+class LinkedListNode<T> {
+	T data;
+	LinkedListNode<T> next;
+
+	public LinkedListNode(T data) {
+		this.data = data;
+	}
+}
+ ***************/
+
+public class Solution {
+
+
+    public static LinkedListNode<Integer> nextLargeNumber(LinkedListNode<Integer> head) {
+
+        LinkedListNode<Integer> temp = head;
+        LinkedListNode<Integer> ans = null;
+
+        while(temp.next != null){
+            temp = temp.next;
+        }
+
+        if(temp.data >= 0 && temp.data <= 8){
+            temp.data = temp.data+1;
+            return head;
+        }else{
+            LinkedListNode<Integer> reversedhead = reverse(head);
+            temp = reversedhead;
+            while(temp.data == 9 && temp.next != null){
+                temp.data = 0;
+                temp = temp.next;
+            }
+            if(temp.next != null){
+                temp.data = temp.data + 1;
+            }else if(temp.next == null){
+                LinkedListNode<Integer> newnode = new LinkedListNode<>(1);
+                temp.data = 0;
+                temp.next = newnode;
+            }
+            
+            ans = reverse(reversedhead);
+            
+        }
+        return ans;
+
+    }
+
+    private static LinkedListNode<Integer> reverse(LinkedListNode<Integer> head){
+        LinkedListNode<Integer> ptr = head;
+        LinkedListNode<Integer> nextnode = null;
+        LinkedListNode<Integer> prev = null;
+
+        while(ptr != null){
+            nextnode = ptr.next;
+            ptr.next = prev;
+            prev = ptr;
+            ptr = nextnode;
+        }
+        head = prev;
+
+        return head;
+    }
+
+
+
+}
