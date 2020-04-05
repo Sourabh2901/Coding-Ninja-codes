@@ -1,0 +1,48 @@
+public class solution {
+
+    // Return a 2D array that contains all the subsets which sum to k
+    public static int[][] subsetsSumK(int input[], int k) {
+        // Write your code here
+        int x[][] =  subsetsSumK(input,k,0);
+        return x;
+    }
+    
+    private static int[][] subsetsSumK(int input[], int k, int si){
+        if(input.length == si){
+            if(k ==0){
+                int [][] x = new int[1][0];
+                return x;
+            }else{
+                int [][] y = new int[0][0];
+                return y;
+            }
+        }
+        
+        //here we are considering the first element int the subset of temp1
+        int [][] temp1 = subsetsSumK(input,k,si+1);
+        
+         //here we are not considering the first element int the subset of temp1 so we have to append input[si] to temp2
+        int [][] temp2 = subsetsSumK(input,k-input[si],si+1);
+        
+        int ans [][] = new int[temp1.length+temp2.length][];
+        
+        int i=0,j=0;
+        for(i=0;i<temp1.length;i++){
+            ans[i] = new int[temp1[i].length];
+            for(j=0;j<temp1[i].length;j++){
+                ans[i][j] = temp1[i][j];
+            }
+        }
+        
+        int ii=i;
+        for(i=0;i<temp2.length;i++){
+            ans[i+ii] = new int[temp2[i].length+1];
+            ans[i+ii][0] = input[si];
+            for(j=0;j<temp2[i].length;j++){
+                ans[i+ii][j+1] = temp2[i][j];
+            }
+        }
+        return ans;
+    }
+
+}
