@@ -1,0 +1,34 @@
+public class solution {
+
+	public static void printAllPossibleCodes(String input) {
+		// Write your code here
+        printAllPossibleCodes(input,"");
+        
+	}
+    
+    private static void printAllPossibleCodes(String input,String output){
+        if(input.length() == 0){
+            System.out.println(output);
+            return;
+        }
+        
+        char ch1 = helper(input.charAt(0)-'0');
+        
+        printAllPossibleCodes(input.substring(1) ,output+ch1);
+        
+        if(input.length() >= 2){
+            int x1 = input.charAt(0)-'0';
+            int x2 = input.charAt(1)-'0';
+            int x = x1*10 + x2;
+            if(x>=10 && x<=26){
+                char ch2 = helper(x);
+                printAllPossibleCodes(input.substring(2),output+ch2);
+            }
+        }
+    }
+    
+    private static char helper(int x){
+        char code = (char)('a'+x-1);
+        return code;
+    }
+}
