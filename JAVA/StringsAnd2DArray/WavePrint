@@ -1,0 +1,22 @@
+public class Solution {
+    // input - input 2D array
+    public static void wavePrint(int input[][]){
+
+        int col = input[0].length;
+
+        for(int i=0;i<col;i++){
+            int j=0;
+            for(j=0;j<input.length;j++){
+                System.out.print(input[j][i]+" ");
+            }
+             i=i+1;
+            if(i < col){
+                j=j-1;
+                for( ;j>=0;j--){
+                    System.out.print(input[j][i]+" ");
+                }
+            }
+
+        }
+    }
+}
