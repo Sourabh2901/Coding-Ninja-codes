@@ -1,0 +1,20 @@
+public class solution {
+
+    public static String removeConsecutiveDuplicates(String input) {
+
+        String str = input;
+        String ans = str.charAt(0) +"";
+        int lastindex = 0;
+        
+       for(int i=1;i<str.length();i++){
+           if(str.charAt(i) == ans.charAt(lastindex)){
+               continue;
+           }else{
+               ans = ans + str.charAt(i);
+               lastindex++;
+           }
+           
+       }
+        return ans;
+    }
+}
