@@ -1,0 +1,46 @@
+
+public class Solution {
+
+    public static void findLargest(int input[][]){
+        int row = input.length;
+        int col = input[0].length;
+
+        boolean flag = true;
+        int rowsum = 0;
+        int colsum = 0;
+        int maxsum = 0;
+        int no = -1;
+        // int colno = -1;
+
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                rowsum += input[i][j];
+            }
+            if(rowsum > maxsum){
+                //   maxrowsum = rowsum;
+                maxsum = rowsum;
+                no = i;
+            }  
+            rowsum = 0;
+        }
+
+        for(int i=0;i<col;i++){
+            for(int j=0;j<row;j++){
+                colsum += input[j][i];
+            }
+            if(colsum > maxsum){
+                maxsum = colsum;
+                no = i;
+                flag = false;
+            } 
+            colsum = 0;
+        }
+
+        if(flag){
+            System.out.println("row" +" "+no+" "+maxsum);
+        }else{
+            System.out.println("column"+" "+no+" "+maxsum);
+        }
+
+    }
+}
