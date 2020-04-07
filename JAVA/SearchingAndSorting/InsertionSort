@@ -1,0 +1,20 @@
+public class InsertionSort {	
+	//arr is the input array you have to sort
+    public static void insertionSort(int[] arr){
+        int n = arr.length;
+
+        for(int i=1;i<n;i++){
+            int elem = arr[i];
+            int j = i-1;
+            for( ;j>=0;j--){
+                if(arr[j] > elem){
+                    arr[j+1] = arr[j];
+                }else{
+                   // arr[j+1] = elem;
+                    break;
+                }
+            }
+            arr[j+1] = elem;
+        }
+    }
+}
