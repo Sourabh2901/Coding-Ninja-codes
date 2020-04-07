@@ -1,0 +1,88 @@
+public class Polynomial {
+
+	
+	/* This function sets coefficient for a particular degree value, if degree is not there in the polynomial
+	 *  then corresponding term(with specified degree and value) is added int the polynomial. If the degree
+	 *  is already present in the polynomial then previous coefficient is replaced by
+	 *  new coefficient value passed as function argument
+	*/
+    
+    private int data[];
+    
+    public Polynomial(){
+       data = new int[20];
+    }
+    
+    
+	public void setCoefficient(int degree, int coeff){
+        if(degree >= data.length){
+            this.reStructure();
+        }
+		this.data[degree] = coeff;
+	}
+	
+    private void reStructure(){
+        int temp [] = data;
+        data = new int[data.length*2];
+        for(int i=0;i<temp.length;i++){
+            data[i] = temp[i];
+        }
+    }
+    
+	// Prints all the terms(only terms with non zero coefficients are to be printed) in increasing order of degree. 
+	public void print(){
+        int size = this.data.length;
+		for(int i=0;i<size;i++){
+            if(data[i]==0){
+                continue;
+            }
+            System.out.print(data[i]+"x"+i+" ");
+        }
+	}
+
+	
+	// Adds two polynomials and returns a new polynomial which has result
+	public Polynomial add(Polynomial p){
+        Polynomial x = new Polynomial();
+        int max = Math.max(p.data.length,this.data.length);
+        for(int i=0;i<max;i++){
+            x.setCoefficient(i,(this.data[i]+p.data[i]));
+           
+        }
+        
+        return x;
+	}
+	
+//	Subtracts two polynomials and returns a new polynomial which has result
+	public Polynomial subtract(Polynomial p){
+	    Polynomial y = new Polynomial();
+        int max = Math.max(p.data.length,this.data.length);
+        for(int i=0;i<max;i++){
+             y.setCoefficient(i,(this.data[i]-p.data[i]));
+        }
+        return y;
+	}
+	
+    private int getCoefficient(int index){
+        if(index > data.length-1){
+          return 0;
+        }
+        return data[index];
+    }
+    
+	// Multiply two polynomials and returns a new polynomial which has result
+	public Polynomial multiply(Polynomial p){
+        Polynomial z = new Polynomial();
+      //  z.data[0] = this.data[0]*p.data[0];
+		for(int i=0;i<this.data.length;i++){
+            for(int j=0;j<p.data.length;j++){
+                int index = i+j;
+                z.getCoefficient(index);
+               z.setCoefficient(index , this.data[i]*p.data[j]+z.getCoefficient(index));
+              index=0;
+            }
+        }
+        return z;
+	}
+
+}
