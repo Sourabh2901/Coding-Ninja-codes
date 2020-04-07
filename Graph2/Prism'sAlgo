@@ -1,0 +1,83 @@
+import java.util.Scanner;
+
+public class Solution {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int V = s.nextInt();
+		int E = s.nextInt();
+
+		int Edges[][] = new int[V][V];
+        
+        for(int i=0;i<E;i++){
+            int v1 = s.nextInt();
+            int v2 = s.nextInt();
+            int weight = s.nextInt();
+            Edges[v1][v2] = weight;
+            Edges[v2][v1] = weight;
+        }
+        
+        prism(Edges ,V);
+	}
+    
+    private static void prism(int Edges[][] ,int n){
+        boolean visited [] = new boolean[n];
+        int weight [] = new int[n];
+        int parent [] = new int[n];
+        
+        weight[0] = 0;
+        parent[0] = -1;
+        
+        for(int i=1;i<n;i++){
+            parent[i] = -1;
+            weight[i] = Integer.MAX_VALUE;
+        }
+        
+      //  int min = Integer.MAX_VALUE;
+        
+        for(int i=0;i<n;i++){
+            //Finding element with minimum weight
+//             int min = -1;
+            
+//             for(int j=0;j<n;j++){        
+//                 if(!visited[j] && (min == -1 || weight[j] < weight[min])){
+//                     min = j;
+//                 }
+//             }
+            
+            int min = findminVertex(weight ,visited);
+            
+            visited[min] = true;
+            
+            for(int k=0;k<n;k++){
+                if(Edges[min][k] != 0 && !visited[k]){
+                    if(weight[k] > Edges[min][k]){
+                        weight[k] = Edges[min][k];
+                        parent[k] = min;
+                    }
+                }
+            }
+        }
+        
+        for(int x=1;x<n;x++){
+                if(x < parent[x]){
+                    System.out.println(x+" "+parent[x]+" "+weight[x]);
+                }else{
+                    System.out.println(parent[x]+" "+x+" "+weight[x]);
+                }
+                
+            }
+        
+    }
+    
+    private static int findminVertex(int weight[] ,boolean visited[]){
+       int min = -1;
+        for(int i=0;i<weight.length;i++){
+            if(!visited[i] && (min == -1 || weight[i] < weight[min])){
+                min = i;
+            }
+        }
+        return min;
+    }
+    
+}
