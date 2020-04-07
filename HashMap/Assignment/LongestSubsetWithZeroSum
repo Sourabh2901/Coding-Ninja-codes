@@ -1,0 +1,40 @@
+import java.util.*;
+
+/*
+	- You are given an integer array containing positive and negative numbers.
+	- Your task is to find out the length of the longest continuous subset of this array whose elements add upto zero.
+
+*/
+
+public class solution 
+{
+    public static int lengthOfLongestSubsetWithZeroSum(ArrayList<Integer> arr) 
+   	{
+        int sum = 0;
+        int maxlength = 0;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        
+        for(int i=0;i<arr.size();i++){
+            int length = 0;
+            sum += arr.get(i);
+            
+            if(map.containsKey(sum)){
+                length = i - map.get(sum);
+                if(length > maxlength){
+                    maxlength = length;
+                }
+            }else{
+                map.put(sum,i);
+            }
+            
+             if(sum == 0){
+                length = i+1;
+                if(length > maxlength){
+                    maxlength = length;
+                }           
+            }
+        }
+
+		return maxlength;
+	}
+}
