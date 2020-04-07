@@ -1,0 +1,98 @@
+//import java.util.Collections;
+import java.util.Arrays;
+import java.util.Scanner;
+
+class Edge implements Comparable<Edge>{
+    int v1;
+    int v2;
+    int weight;
+    
+    Edge(int v1,int v2,int weight){
+        this.v1 = v1;
+        this.v2 = v2;
+        this.weight = weight;
+    }
+    
+    public int compareTo(Edge e){
+        if(this.weight == e.weight){
+            return 0;
+        }else if(this.weight > e.weight){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+    
+}
+
+public class Solution {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int V = s.nextInt();
+		int E = s.nextInt();
+
+        //Take input
+        Edge input [] = new Edge[E];
+       
+        for(int i=0;i<E;i++){
+            int v1 = s.nextInt();
+            int v2 = s.nextInt();
+            int weight = s.nextInt();
+            Edge obj1 = new Edge(v1,v2,weight);
+            input[i] = obj1;
+        }
+        
+        
+        kruskals(input , V);
+    }
+    
+
+    private static void kruskals(Edge input[] ,int n){
+        Arrays.sort(input);
+
+        int parent[] = new int[n];
+
+        for(int i=0;i<n;i++){
+            parent[i] = i;
+        }
+
+        Edge output [] = new Edge[n-1];
+        int count = 0;
+        int i = 0;
+
+        while(count != n-1){
+
+            Edge x = input[i++];
+
+            int p1 = findParent(x.v1 ,parent);
+            int p2 = findParent(x.v2 ,parent);
+
+            if(p1 != p2){
+                output[count] = x;
+                count++;
+                parent[p1] = parent[p2];
+            }
+        }
+        
+        for(int k=0;k<output.length;k++){
+            Edge obj = output[k];
+            if(obj.v1 < obj.v2){
+                System.out.println(obj.v1+" "+obj.v2+" "+obj.weight);
+            }else{
+                System.out.println(obj.v2+" "+obj.v1+" "+obj.weight);
+            }
+            
+        }
+    }
+
+    
+    private static int findParent(int vertex ,int parent[]){
+        if(vertex == parent[vertex]){
+            return vertex;
+        }
+        
+        return findParent(parent[vertex] , parent);
+    }
+    
+}
