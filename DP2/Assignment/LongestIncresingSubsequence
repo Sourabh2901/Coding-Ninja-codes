@@ -1,0 +1,31 @@
+public class Solution {
+
+	public static int lis(int arr[]) {
+		
+			int storage[] = new int[arr.length];
+        
+        storage[0] = 1;
+        
+        for(int i=2;i<storage.length;i++){
+            int ans = 0;
+            for(int j=i-1;j>=0;j--){
+                if(arr[j] < arr[i]){
+                    int x = storage[j];
+                    if(x > ans){
+                        ans = x;
+                    }
+                }
+            }
+            storage[i] = ans + 1;
+        }
+
+        int max = 0;
+        for(int i=0;i<storage.length;i++){
+            if(storage[i] > max){
+                max = storage[i];
+            }
+        }
+        
+        return max;
+	}	
+}
