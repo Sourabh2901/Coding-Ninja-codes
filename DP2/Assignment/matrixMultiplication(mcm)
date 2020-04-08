@@ -1,0 +1,39 @@
+
+public class Solution {
+
+	
+	public static int mcm(int[] p){
+        int storage [][] = new int[p.length + 1][p.length + 1];
+        
+        for(int i=0;i<storage.length;i++){
+            for(int j=0;j<storage[0].length;j++){
+                storage[i][j] = -1;
+            }
+        }
+		return memoization(p ,0 ,p.length-1,storage);
+
+	}
+    
+    private static int memoization(int p[] ,int si ,int ei ,int storage[][]){
+        if(si == ei || si == ei -1){
+            storage[si][ei] = 0;
+            return 0;
+        }
+        if(storage[si][ei] != -1){
+            return storage[si][ei];
+        }
+        
+        int ans = Integer.MAX_VALUE;
+        for(int k = si+1;k<=ei-1;k++){
+          int x = memoization(p ,si ,k,storage) + memoization(p ,k ,ei,storage) + (p[si]*p[k]*p[ei]);  
+            if(x < ans){
+                ans = x;
+            }
+        } 
+        storage[si][ei] = ans;
+        return ans;
+    }
+
+
+	
+}
