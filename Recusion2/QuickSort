@@ -1,0 +1,54 @@
+
+public class Solution {
+	
+	public static void quickSort(int[] input) {
+        quicksort(input ,0 ,input.length-1);	
+	}
+    
+    private static void quicksort(int input[] ,int si ,int ei){
+        if(si >= ei){
+            return;
+        }
+        int pivot = partition(input,si,ei);
+        quicksort(input,si,pivot-1);
+        quicksort(input,pivot+1,ei);
+        
+    }
+    
+    private static int partition(int input[] ,int si ,int ei){
+        int pivot = input[si];
+        int count = 0;
+        
+        for(int x=si+1;x<=ei;x++){
+            if(input[x] < input[si]){
+                count++;
+            }
+        }
+        
+        int pivotpos = si+count;
+        
+       // int temp = input[pivotpos];
+        input[si] = input[pivotpos];
+        input[pivotpos] = pivot;
+        
+        
+        int i=si;
+        int j=ei;
+        
+        while(i < pivotpos || j > pivotpos){
+            if(input[i] < pivot){
+                i++;
+            }else if(input[j] >= pivot){
+                j--;
+            }else{
+                int temp1 = input[i];
+                input[i] = input[j];
+                input[j] = temp1;
+                i++;
+                j--;
+            }
+        }
+        return pivotpos;
+   }
+    
+}
