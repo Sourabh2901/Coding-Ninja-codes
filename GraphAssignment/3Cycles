@@ -1,15 +1,12 @@
 public class solution {
     public int solve(int n,int m,int U[],int V[]) {
         //Creating matrix
-        int matrix[][] = new int[n+1][];
+        int matrix[][] = new int[n+1][n+1];
 
         for(int i=0;i<=n;i++){
-            matrix[i] = new int[n+1];
-
             for(int j=0;j<=n;j++){
                 matrix[i][j]=0;
             }
-
         }
 
         for(int i=0;i<m;i++){
