@@ -1,0 +1,43 @@
+public class solution {
+    
+    public int solve(int n,int m,int U[],int V[]) {
+        //write your code here
+  //      Scanner s = new Scanner(System.in);
+        
+        int X = n;
+        int E = m;
+        
+        int Edges[][] = new int[X+1][X+1];
+        
+        for(int i=0;i<E;i++){
+            int v1 = U[i];
+            int v2 = V[i];
+            
+            Edges[v1][v2] = 1;
+            Edges[v2][v1] = 1;
+        }
+        
+        boolean visited [] = new boolean[X+1];
+        int count = 0;
+        
+        for(int i=1;i<visited.length;i++){
+            if(!visited[i]){
+                DFS(Edges ,visited ,i);
+                count++;
+            }
+        }
+        
+        return count;
+    }
+    
+    private static void DFS(int Edges[][] ,boolean visited[] ,int sv){
+        visited[sv] = true;
+        
+        for(int i=1;i<Edges.length;i++){
+            if(Edges[sv][i] == 1 && !visited[i]){
+                DFS(Edges ,visited ,i);
+            }
+        }
+        
+    }
+}
