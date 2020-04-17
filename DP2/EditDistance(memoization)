@@ -45,3 +45,51 @@ public class Solution {
 
     }
 }
+==============================================================
+
+
+public class Solution {
+	public static int editDistance(String s1, String s2){
+        int storage[][] = new int [s1.length()+1][s2.length()+1];
+        
+        for(int i=0;i<s1.length()+1;i++){
+            for(int j=0;j<s2.length()+1;j++){
+                storage[i][j] = -1;
+            }
+        }
+        return memoization(s1,s2,storage);
+	}
+    
+    private static int memoization(String s1,String s2,int storage[][]){
+        int m = s1.length();
+        int n = s2.length();
+        
+        if(s1.length() == 0){
+            storage[0][s2.length()] = s2.length();
+            return s2.length();
+        }
+        
+        if(s2.length() == 0){
+            storage[s1.length()][0] = s1.length();
+            return s1.length();
+        }
+        
+        if(storage[m][n] != -1){
+            return storage[m][n];
+        }
+        
+        if(s1.charAt(0) == s2.charAt(0)){
+            storage[m][n] = editDistance(s1.substring(1),s2.substring(1));
+            return storage[m][n];
+        }
+        else{
+            //insert
+            int op1 = editDistance(s1.substring(1),s2);
+            int op2 = editDistance(s1,s2.substring(1));
+            int op3 = editDistance(s1.substring(1) , s2.substring(1));
+            
+            storage[m][n] = 1 + Math.min(op1,Math.min(op2,op3));
+            return storage[m][n];
+        }
+    }
+}
