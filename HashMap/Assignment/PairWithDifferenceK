@@ -1,3 +1,59 @@
+import java.util.HashMap;
+public class Solution {
+
+	public static void findPairsDifferenceK(int[] input, int k){
+		HashMap<Integer,Integer> map = new HashMap<>();
+        
+        for(int i=0;i<input.length;i++){
+            if(map.containsKey(input[i])){
+                int value = map.get(input[i]) + 1;
+                map.put(input[i],value);
+            }else{
+                map.put(input[i],1);
+            }
+        }
+        
+        for(int i = 0;i<input.length;i++){
+            int x = input[i];
+            int req1 = input[i] - k;
+            int req2 = input[i] + k;
+
+            if(x == req1 || x == req2){
+                if(map.containsKey(input[i])){
+                    
+                    int y = map.get(input[i]) - 1;
+                    int pairs = y*(y+1)/2;
+                    for(int j = 0;j<pairs;j++){
+                        System.out.println(input[i]+" "+input[i]);
+                    }
+                    map.remove(input[i]);
+                    
+                }
+            }else{
+                if(map.containsKey(req1) && map.containsKey(input[i])){
+                    int pairs = map.get(input[i]) * map.get(req1);
+                    for(int j = 0;j<pairs;j++){
+                        System.out.println(Math.min(req1,input[i])+" "+Math.max(req1,input[i]));
+                    }
+
+                }
+
+                if(map.containsKey(req2) && map.containsKey(input[i])){
+                    int pairs = map.get(input[i]) * map.get(req2);
+                    for(int j = 0;j<pairs;j++){
+                        System.out.println(Math.min(req2,input[i])+" "+Math.max(req2,input[i]));
+                    }
+                }
+                map.remove(x);
+            }
+        }
+    }
+}
+
+
+==========================================O(n^2)
+
+
 public class Solution {
 
 	public static void findPairsDifferenceK(int[] input, int k){
