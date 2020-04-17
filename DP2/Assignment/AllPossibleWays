@@ -1,0 +1,20 @@
+public class Solution {
+
+    public static int allWays(int x, int n) {
+       return helper(x ,n ,1);
+    }
+
+    public static int helper(int x ,int n ,int m){
+        int val = (x - (int)(Math.pow(m,n)));
+
+        if(val == 0)
+        {
+            return 1;
+        }
+
+        if(val < 0)
+            return 0;
+
+        return helper(val,n,m+1) + helper(x,n,m+1);
+    }
+}
