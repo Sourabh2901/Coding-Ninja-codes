@@ -1,0 +1,54 @@
+import java.util.Stack;
+
+public class QueueUsingTwoStack {
+	Stack<Integer> s1;
+	Stack<Integer> s2;
+	int size;
+	
+	public QueueUsingTwoStack(){
+		s1 = new Stack<>();
+		s2 = new Stack<>();
+		size = 0;
+	}
+	
+	public void add(int elem){
+		s1.push(elem);
+		size++;
+	}
+	
+	public int remove(){
+		while(s1.size() != 1){
+			s2.push(s1.pop());
+		}
+		int temp = s1.pop();
+		size--;
+		
+		while(s2.size() != 0){
+			s1.push(s2.pop());
+		}
+		
+		return temp;
+	}
+	
+	public int size(){
+		return size;
+	}
+	
+	public boolean isEmpty(){
+		return size == 0;
+	}
+	
+	public int top(){
+		while(s1.size() != 1){
+			s2.push(s1.pop());
+		}
+		int temp = s1.peek();
+		size--;
+		
+		while(s2.size() != 0){
+			s1.push(s2.pop());
+		}
+		
+		return temp;
+	}
+}
