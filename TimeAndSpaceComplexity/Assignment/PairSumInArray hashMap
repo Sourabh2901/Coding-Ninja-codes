@@ -1,0 +1,41 @@
+import java.util.HashMap;
+
+public class PairSum{	
+
+	public static void pairSum(int[] arr, int num){
+        HashMap<Integer,Integer> map = new HashMap<>();
+        
+        for(int i:arr){
+            if(map.containsKey(i)){
+                map.put(i,map.get(i) + 1);
+            }else{
+                map.put(i,1);
+            }
+        }
+        
+        for(int i=0;i<arr.length;i++){
+            int req = num - arr[i];
+            
+            if(map.containsKey(req)){
+                int count =0;
+                if(arr[i] == req){
+                    count = (map.get(arr[i]) - 1); 
+                    map.put(arr[i] ,map.get(arr[i]) - 1);
+                }else{
+                    count = map.get(req) * map.get(arr[i]); 
+                    map.remove(arr[i]);
+                    map.remove(req);
+                }
+
+                for(int j=0;j<count;j++){
+                    if(arr[i] < req){
+                        System.out.println(arr[i] +" "+req);
+                    }else{
+                        System.out.println(req +" "+arr[i]);
+                    }
+                }
+            }
+        }
+        
+	}
+}
