@@ -1,0 +1,67 @@
+public class Solution {
+
+
+    public static void placeNQueens(int n){
+        int board[][] = new int[n][n];
+        placeNQueen(n , 0 ,board);
+    }
+    
+    public static void placeNQueen(int n ,int row ,int board[][]){
+        //bsse case
+        if(row == n){
+            for(int i=0;i<n;i++){
+                boolean ans = checkmove(row , i ,board);
+                if(ans){
+                    board[row][i] = 1;
+                    break;
+                }
+            }
+            
+            for(int i=0;i<n;i++){
+                for(int j=0;j<n;j++){
+                    System.out.print(board[i][j] +" ");
+                }
+            }    
+            System.out.println();
+            return;
+        }
+        
+        //check for all columns
+        for(int i=0;i<n;i++){
+            boolean ans = checkmove(row,i,board);
+
+            if(ans){
+                board[row][i] = 1;
+                placeNQueen(n ,row+1 ,board);
+                board[row][i] = 0;
+            }
+            
+            //if we can't place any queen in column
+            if(i == n-1){
+                return;
+            }
+        }
+    }
+    
+    public static boolean checkmove(int x, int y ,int board[][]){
+        int n = board.length;
+        int xdir[] = {-1,-1,0,1,1,1,0,-1};
+        int ydir[] = {0,1,1,1,0,-1,-1,-1};
+        
+        for(int i=0;i<8;i++){
+            int x1 = x + xdir[i];
+            int y1 = y + ydir[i];
+            
+            while(x1 >= 0 && x1 < n && y1 >= 0 && y1 < n){
+                if(board[x1][y1] == 1){
+                    return false;
+                }
+                 x1 += xdir[i];
+                 y1 += ydir[i];      
+            }
+        }
+        
+        return true;
+    }
+
+} 
