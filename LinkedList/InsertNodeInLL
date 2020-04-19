@@ -1,0 +1,27 @@
+public class Solution {
+
+    public static Node<Integer> insert(Node<Integer> head, int data, int pos){
+
+        Node<Integer> newnode = new Node<>(data);
+
+        if(pos == 0){
+            newnode.next = head;
+            return newnode;
+        }else{
+            int count = 0;
+            Node<Integer> temp = head;
+            
+            while(count < pos-1){
+                if(temp == null){
+                    return head;
+                }
+                temp = temp.next;
+                count++;
+            }
+            newnode.next = temp.next;
+            temp.next = newnode;
+            return head;
+        }
+        
+    }
+}
