@@ -1,0 +1,33 @@
+import java.util.Scanner;
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+
+        int k = 1;
+        int l = 1;
+
+        while(k<=n){ 
+            l = 1;
+            while(l<=n){
+                if(k==l)  
+                    System.out.print("*");  
+                else  
+                    System.out.print("0");  
+                l++;
+            }  
+            l--;  
+            System.out.print("*");  
+            while(l>=1){ 
+                if(k==l)  
+                    System.out.print("*");  
+                else  
+                    System.out.print("0");  
+                l--;  
+            }  
+            System.out.println("");  
+            k++;
+        }  
+    }  
+}  
