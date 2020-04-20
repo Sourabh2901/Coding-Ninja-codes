@@ -1,0 +1,48 @@
+class pair{
+    int height;
+    int diameter;
+}
+
+public class Solution {
+
+/*	Binary Tree Node class 
+ * 
+ * 	class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+		
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	*/
+	
+	public static int diameterOfBinaryTree(BinaryTreeNode<Integer> root){
+        pair ans = helper(root);
+        return ans.diameter;
+	}
+	
+	public static pair helper(BinaryTreeNode<Integer> root){
+        if(root == null){
+            pair output = new pair();
+            output.height = 0;
+            output.diameter = 0;
+            return output;
+        }
+        
+        pair left = helper(root.left);
+        pair right = helper(root.right);
+        
+        int height = Math.max(left.height,right.height) + 1;
+        int ans1 = left.height + right.height + 1;
+        int ans2 = left.diameter;
+        int ans3 = right.diameter;
+        
+
+        pair output = new pair();
+        output.height = height;
+        output.diameter = Math.max(ans1,Math.max(ans2,ans3));
+        return output;
+    }
+}
