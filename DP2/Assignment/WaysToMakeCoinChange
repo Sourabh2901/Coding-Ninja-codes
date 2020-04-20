@@ -1,42 +1,60 @@
-#include <bits/stdc++.h>
-using namespace std;
+RECURSIVE
 
-int coinChange(int denominations[], int numDenominations, int value,int **dp)
-{
-    if(numDenominations == 0)
-    {
-        return 0;
-    }
 
-    if(value == 0 )
-    {
-        return 1;
+public class Solution {
+
+    public static int countWaysToMakeChange(int denominations[], int value){
+        return helper(denominations ,value ,0);
     }
 
-    if(value < 0)
-    {
-        return 0;
+    public static int helper(int denominations[] ,int value ,int i){
+        if(i == denominations.length || value < 0){
+            return 0;
+        }
+
+        if(value == 0){
+            return 1;
+        }
+
+        int ans1 = helper(denominations ,value - denominations[i] ,i);
+        int ans2 =  helper(denominations ,value,i+1);
+
+        return ans1+ans2;
+
     }
-    
-    if(dp[value][numDenominations] > -1)
-    {
-        return dp[value][numDenominations];
-    }
-    
-    int ans1 = coinChange(denominations,numDenominations,value-denominations[0],dp);
-    int ans2 = coinChange(denominations+1,numDenominations-1,value,dp);
-    dp[value][numDenominations] = ans1+ans2;
-    return ans1+ans2;
 }
 
-int countWaysToMakeChange(int denominations[], int numDenominations, int value)
-{
-    int **dp = new int*[value+1];
-    for(int i = 0; i <= value; i++)
-    {
-        dp[i] = new int[numDenominations+1]; 
-        for(int j = 0; j <= numDenominations; j++) 
-            dp[i][j] = -1;
+--------------------------------------------------------------------------
+
+DP
+
+
+public class Solution {
+
+
+    public static int countWaysToMakeChange(int denominations[], int value){
+
+        int n = denominations.length;
+        
+       int ways[][] = new int[n+1][value+1];
+        
+        //for value zero ways to make change are 1
+        for(int i = 0;i<n;i++){
+            ways[i][0] = 1;
+        }
+        
+        for(int i = n-1;i >= 0; i--){
+            for(int j = 1;j <= value;j++){
+                int ans1 = 0;
+                if(j - denominations[i] >= 0){
+                     ans1 = ways[i][j - denominations[i]];
+                }
+                
+                int ans2 = ways[i+1][j];
+                
+                ways[i][j] = ans1 + ans2;
+            }
+        }
+        return ways[0][value];
     }
-    return coinChange(denominations,numDenominations,value,dp);
 }
