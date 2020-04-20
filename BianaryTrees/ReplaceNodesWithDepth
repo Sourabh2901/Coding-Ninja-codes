@@ -1,0 +1,30 @@
+public class solution {
+
+	static void replaceDepth(BinaryTreeNode<Integer> n1) {
+		helper(n1,0);
+        //print work
+        print(n1);
+	}
+    
+    public static void print(BinaryTreeNode<Integer> root){
+        if(root == null){
+            return;
+        }
+        
+        print(root.left);
+        System.out.println(root.data);
+        print(root.right);
+        
+    }
+    
+    public static void helper(BinaryTreeNode<Integer> root ,int depth){
+        if(root == null){
+            return;
+        }
+        
+        root.data = depth;
+        
+        helper(root.left,depth + 1);
+        helper(root.right, depth + 1);
+    }
+}
