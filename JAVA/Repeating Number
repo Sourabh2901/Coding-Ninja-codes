@@ -1,0 +1,24 @@
+public class solution {
+
+    public static void print(int n) {
+        //Write your code here
+        int i = 1;
+        int k = 1;
+        int tobePrinted = 1;
+        
+        while(i<=n){
+            int j = 1;
+            while(j <= k){
+                System.out.print(tobePrinted);
+                tobePrinted++;
+                if(tobePrinted == 10){
+                    tobePrinted = 1;
+                }
+                j++;
+            }
+            System.out.println();
+            k = k*2;
+            i++;
+        }
+    }
+}
