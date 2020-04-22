@@ -1,0 +1,35 @@
+
+public class Solution {
+	
+	public static int minCount(int n) {
+        int dp[] = new int[n+1];
+        for(int i=0;i<=n;i++){
+            dp[i] = -1;
+        }
+        return M(n,dp);
+	}
+
+    public static int M(int n ,int dp[]){
+        if(n == 0){
+            dp[0] = 0;
+            return 0;
+        }
+        
+        if(dp[n] != -1){
+            return dp[n];
+        }
+
+        int minans = Integer.MAX_VALUE;
+        int i=1;
+        while(i*i <= n){
+            int ans = minCount(n - i*i);
+            if(ans < minans){
+                minans = ans;
+            }
+            i++;
+        }
+        dp[n] = minans + 1;
+        return dp[n];
+    }
+    
+}
