@@ -1,0 +1,67 @@
+public class Solution {
+
+    public static int countStepsTo1(int n){
+
+//         int option1 = Integer.MAX_VALUE;
+//         int option2 = Integer.MAX_VALUE;
+//          int option3 = Integer.MAX_VALUE;
+        
+//         if(n == 1){
+//             return 0;
+//         }
+
+//         if(n%2 == 0)
+//              option1 = countStepsTo1(n/2);
+        
+//         if(n%3 == 0)
+//             option2 = countStepsTo1(n/3);
+        
+//         option3 = countStepsTo1(n-1);
+        
+//         return 1+Math.min(option1,Math.min(option2,option3));
+        
+        return Memoization(n);
+    }
+    
+    private static int Memoization(int n){
+        int storage[] = new int[n+1];
+        
+        for(int i=0;i<storage.length;i++){
+            storage[i] = -1;
+        }
+        
+        return Memoization(n,storage);
+    }
+
+    private static int Memoization(int n,int storage[]){
+        if(n==1){
+            storage[n] = 0;
+            return storage[n];
+        }
+        if(n==2 || n==3){
+            storage[n] = 1;
+            return storage[n];
+        }
+
+        int option1 = Integer.MAX_VALUE;
+        int option2 = Integer.MAX_VALUE;
+        int option3 = Integer.MAX_VALUE;
+
+        if(storage[n] != -1){
+            return storage[n];
+        }
+        
+        if(n%2 == 0)
+             option1 = countStepsTo1(n/2);
+        
+        if(n%3 == 0)
+            option2 = countStepsTo1(n/3);
+        
+        option3 = countStepsTo1(n-1);
+        
+        storage[n] = 1+Math.min(option1,Math.min(option2,option3));
+        
+        return storage[n];
+        
+    }
+}
