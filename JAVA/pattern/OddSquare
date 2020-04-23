@@ -1,0 +1,29 @@
+import java.util.Scanner;
+public class Main {
+	
+	public static void main(String[] args) {
+		// Write your code here
+        Scanner s = new Scanner(System.in);
+        int n = s.nextInt();
+    
+        int currRow = 1;
+        
+        while(currRow <= n){
+            int tobeprinted = (2 * currRow) - 1;
+            int currCol = n;
+            
+            while(currCol > 0){
+                System.out.print(tobeprinted);
+                tobeprinted += 2;
+                
+                if(tobeprinted > 2*n - 1){
+                    tobeprinted = 1;
+                }
+                currCol -= 1;
+            }
+            
+            System.out.println();
+            currRow += 1;
+        }     
+	}
+}
