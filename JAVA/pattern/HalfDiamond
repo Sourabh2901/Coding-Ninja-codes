@@ -1,0 +1,62 @@
+import java.util.Scanner;
+public class Solution {
+    
+    public static void main(String[] args) { 
+
+        Scanner s = new Scanner(System.in);
+        int n = s.nextInt();
+        
+        int currRow = 1;
+
+        //first half
+        System.out.println("*");
+        while(currRow <= n){
+
+            System.out.print("*");
+            int currCol = 1;
+
+            while(currCol <= currRow){
+                System.out.print(currCol);
+                currCol++;
+            }
+
+            currCol -= 2;
+
+            while(currCol >= 1){
+                System.out.print(currCol);
+                currCol--;
+            }
+
+            System.out.print("*");
+            System.out.println();
+            currRow++;
+        }
+
+        currRow = 1;
+        while(currRow <= n-1){
+            System.out.print("*");
+
+            int currCol = 1;
+
+            while(currCol <= n - currRow){
+                System.out.print(currCol);
+                currCol++;
+            }
+
+            currCol -=2;
+
+            while(currCol >= 1){
+                System.out.print(currCol);
+                currCol--;
+            }
+
+            System.out.print("*");
+
+            System.out.println();
+            currRow++;
+        }
+        
+        System.out.println("*");
+
+    }
+}
