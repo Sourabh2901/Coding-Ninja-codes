@@ -1,0 +1,35 @@
+import java.util.HashMap;
+
+public class Solution {
+
+    static HashMap<Long,Long> dp = new HashMap<>();
+    
+	public static long bytelandian(long n){
+       if(dp.containsKey(n)){
+           return dp.get(n);
+       }else{
+           long x = helper(n);
+           dp.put(n,x);
+           return dp.get(n);
+       }   
+	}
+    
+    public static long helper(long n){
+        if(n == 0){
+            return 0;
+        }
+        
+        if(dp.containsKey(n)){
+            return dp.get(n);
+        }else{
+            long x = helper((long)n/2);
+            long y = helper((long)n/3);
+            long z = helper((long)n/4);
+            
+            long ans = x + y+ z;
+            dp.put(n,Math.max(n,ans));
+            return dp.get(n);
+        }
+    }
+    
+}
