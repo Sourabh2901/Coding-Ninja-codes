@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+        
+        int n = s.nextInt();
+        int arr[][] = new int[n][n];
+        
+        for(int i = 0;i < n;i++){
+            for(int j = 0;j < n;j++){
+                arr[i][j] = s.nextInt();
+            }
+        }
+	
+        System.out.println(findSum(arr));
+	}
+    
+    public static long findSum(int arr[][]){
+        int n = arr.length;
+        long sum = 0;
+        
+        for(int i=0,j=0;i < n && j < n;i++,j++){
+            sum += arr[i][j];
+        }
+        
+         for(int i=0,j=n-1;i < n && j >= 0;i++,j--){
+            sum += arr[i][j];
+        }
+        
+        for(int i=1;i < n-1;i++){
+            sum += arr[0][i] + arr[i][0] + arr[n-1][i] + arr[i][n-1];
+        }
+        
+        if(n % 2 != 0){
+            int x = n / 2;
+            sum -= arr[x][x];
+        }
+        return sum;
+    }
+    
+}
