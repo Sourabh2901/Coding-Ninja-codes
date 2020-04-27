@@ -10,12 +10,12 @@ public class Polynomial {
     private int data[];
     
     public Polynomial(){
-       data = new int[20];
+       data = new int[5];
     }
     
     
 	public void setCoefficient(int degree, int coeff){
-        if(degree >= data.length){
+        while(degree >= data.length){
             this.reStructure();
         }
 		this.data[degree] = coeff;
@@ -44,10 +44,21 @@ public class Polynomial {
 	// Adds two polynomials and returns a new polynomial which has result
 	public Polynomial add(Polynomial p){
         Polynomial x = new Polynomial();
-        int max = Math.max(p.data.length,this.data.length);
-        for(int i=0;i<max;i++){
+        int min = Math.min(p.data.length,this.data.length);
+        
+        int i=0;
+        for(i=0;i<min;i++){
             x.setCoefficient(i,(this.data[i]+p.data[i]));
-           
+        }
+        
+        while(i < this.data.length){
+            x.setCoefficient(i , this.data[i]);
+            i++;
+        }
+        
+        while(i < p.data.length){
+            x.setCoefficient(i , p.data[i]);
+            i++;
         }
         
         return x;
@@ -56,10 +67,23 @@ public class Polynomial {
 //	Subtracts two polynomials and returns a new polynomial which has result
 	public Polynomial subtract(Polynomial p){
 	    Polynomial y = new Polynomial();
-        int max = Math.max(p.data.length,this.data.length);
-        for(int i=0;i<max;i++){
+        int min = Math.min(p.data.length,this.data.length);
+        
+        int i=0;
+        for(i=0;i < min;i++){
              y.setCoefficient(i,(this.data[i]-p.data[i]));
         }
+        
+         while(i < this.data.length){
+            y.setCoefficient(i , this.data[i]);
+            i++;
+        }
+        
+        while(i < p.data.length){
+            y.setCoefficient(i , -p.data[i]);
+            i++;
+        }
+        
         return y;
 	}
 	
@@ -79,7 +103,6 @@ public class Polynomial {
                 int index = i+j;
                 z.getCoefficient(index);
                z.setCoefficient(index , this.data[i]*p.data[j]+z.getCoefficient(index));
-              index=0;
             }
         }
         return z;
