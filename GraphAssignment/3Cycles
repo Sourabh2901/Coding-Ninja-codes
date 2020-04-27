@@ -1,51 +1,51 @@
+import java.util.Scanner;
+
 public class solution {
     public int solve(int n,int m,int U[],int V[]) {
-        //Creating matrix
-        int matrix[][] = new int[n+1][n+1];
-
-        for(int i=0;i<=n;i++){
-            for(int j=0;j<=n;j++){
-                matrix[i][j]=0;
-            }
+        //write your code here
+        Scanner s = new Scanner(System.in);
+        
+        int Edges[][] = new int[n+1][n+1];
+        
+        for(int i=0;i < m;i++){
+            int sv = U[i];
+            int ev = V[i];
+            
+            Edges[sv][ev] = 1;
+            Edges[ev][sv] = 1;
         }
-
-        for(int i=0;i<m;i++){
-            matrix[U[i]][V[i]]=1;
-            matrix[V[i]][U[i]] =1;   
-        }
-
-        //Make visisted matrix
-        int visited []= new int[n+1];
-
-        for(int i=0;i<n+1;i++){
-            visited[i] = 0;
-        }
-
-        //Look for cycle in each element
-        int sum=0;
-        for(int i = 1; i<=n; i++){
-            visited[i]=1;
-            int count=0;
-            sum=sum+helper(i,matrix, n,visited, count);
-        }
-
-        return sum;
+        
+        int ans = cycles(Edges ,n);
+        return ans;
+        
     }
 
 
-    public static int helper(int i, int[][] matrix, int n, int [] visited, int count){
-        for(int j=1;j<n+1;j++){
-            if(visited[j]==0 && matrix[i][j]==1){
-                for(int k=1;k<n+1;k++){
-                    if(visited[k]==0 && matrix[j][k]==1 && matrix[k][i]==1){
-                        count++;
+    public static int cycles(int Edges[][] ,int n){
+        int count = 0;
+        for(int i=1;i <= n;i++){
+
+            for(int j=1;j <= n;j++){
+
+                if(Edges[i][j] == 1){
+
+                    for(int k=1;k <= n;k++){
+
+                        if(Edges[j][k] == 1){
+
+                            if(k == i)
+                                continue;
+
+                            if(Edges[k][i] == 1)
+                                count++;
+                            
+                        }
+
                     }
                 }
             }
-
         }
 
-        return count/2;
+        return count/6;
     }
-
 }
