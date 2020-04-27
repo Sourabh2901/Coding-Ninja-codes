@@ -1,0 +1,51 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Solution {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int V = s.nextInt();
+		int E = s.nextInt();
+
+		int edges[][] = new int[V][V];
+        for(int i=0;i<E;i++){
+            int sv = s.nextInt();
+            int ev = s.nextInt();
+            edges[sv][ev] = 1;
+            edges[ev][sv] = 1;
+        }
+        
+        boolean visited [] = new boolean[V];
+        ArrayList<ArrayList<Integer>> ans1 = new ArrayList<>();
+        
+        for(int i=0;i<visited.length;i++){
+            if(!visited[i]){
+                ArrayList<Integer> output = new ArrayList<>();
+                allComponents(edges,i,visited,output);
+                Collections.sort(output);
+                ans1.add(output);
+            }
+        }
+        
+        for(int i=0;i<ans1.size();i++){
+            ArrayList<Integer> x = ans1.get(i);
+            for(int j=0;j<x.size();j++){
+                System.out.print(x.get(j)+" ");
+            }
+            System.out.println();
+        }
+	}
+    
+    private static void allComponents(int edges[][] ,int sv ,boolean visited[],ArrayList<Integer> output){
+        visited[sv] = true;
+        output.add(sv);
+        
+        for(int i=0;i<edges.length;i++){
+            if(edges[sv][i] == 1 && !visited[i]){
+                allComponents(edges ,i ,visited ,output);
+            }
+        }
+    }
+}
