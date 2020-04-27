@@ -1,0 +1,74 @@
+import java.util.Scanner;
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.ArrayList;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        int V = s.nextInt();
+        int E = s.nextInt();
+
+        int edges[][] = new int[V][V];
+        for(int i=0;i<E;i++){
+            int sv = s.nextInt();
+            int ev = s.nextInt();
+            edges[sv][ev] = 1;
+            edges[ev][sv] = 1;
+        }
+        int v1 = s.nextInt();
+        int v2 = s.nextInt();
+        boolean visited [] = new boolean[V];
+        BFS(edges,v1,v2,visited);
+    }
+
+
+    private static void BFS(int[][] edges, int v1, int v2, boolean[] visited) {
+        Queue<Integer> queue = new LinkedList<>();
+        HashMap<Integer,Integer> map = new HashMap<>();
+
+        queue.add(v1);
+        map.put(0,-1);
+        visited[v1] = true;
+        boolean flag = false;
+
+        while(!queue.isEmpty()){
+            int front = queue.remove();
+
+            for(int i=0;i<edges.length;i++){
+                if(edges[front][i] == 1 && !visited[i]){
+                    queue.add(i);
+                    map.put(i,front);
+                    visited[i] = true;
+                    if(i == v2){
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+
+            if(flag){
+                break;
+            }
+
+        }
+
+        if(flag){
+            ArrayList<Integer> output = new ArrayList<>();
+            output.add(v2);
+
+            while(map.get(v2) != v1){
+                output.add(map.get(v2));
+                v2 = map.get(v2);
+            }
+            output.add(v1);
+
+            for(int i=0;i < output.size();i++){
+                System.out.print(output.get(i)+" ");
+            }
+        }
+    }   
+
+}
