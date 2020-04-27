@@ -1,0 +1,41 @@
+import java.util.Scanner;
+
+public class Solution {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int V = s.nextInt();
+		int E = s.nextInt();
+
+		int edges[][] = new int[V][V];
+        for(int i=0;i<E;i++){
+            int sv = s.nextInt();
+            int ev = s.nextInt();
+            edges[sv][ev] = 1;
+            edges[ev][sv] = 1;
+        }
+        
+        boolean visited [] = new boolean[V];
+        
+        isConnected(edges,visited,0);
+        
+        boolean ans = true;
+        for(int i=0;i<visited.length;i++){
+            if(!visited[i]){
+                ans = false;
+            }
+        }
+        
+        System.out.print(ans);
+	}
+    
+    private static void isConnected(int edges[][] ,boolean visited[] ,int sv){
+        visited[sv] = true;
+        for(int i=0;i<edges.length;i++){
+            if(edges[sv][i] == 1 && !visited[i]){
+                  isConnected(edges , visited , i);
+            }
+        }
+    }
+    
+}
