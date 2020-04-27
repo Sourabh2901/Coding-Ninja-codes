@@ -1,56 +1,71 @@
-
 public class solution {
-	
-    int[][]a = {{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
-    String pattern ="CODINGNINJAS";
-    int[][]used;
-    
-	int solve(String[] Graph , int N, int M)
-	{
-		int i,j,found = 0;
-        used = new int[N][M];
-        
-        for(i=0;i<N;i++){
-            for(j=0,found = 0;j<M;j++){
+
+    int solve(String[] Graph , int N, int M)
+    {
+        int ans = 0;
+        boolean visited[][] = new boolean[N][M];
+
+        for(int i=0;i < N;i++){
+            ans = 0;
+            for(int j=0;j < M ;j++){
                 if(Graph[i].charAt(j) == 'C'){
-                    found = DFS(Graph,i,j,1,N,M);
-                    if(found == 1)
+                    ans = DFS(Graph,i,j,1,visited,N,M);
+                    if(ans == 1){
                         break;
+                    }
                 }
             }
-            if(found == 1){
+            if(ans == 1){
                 break;
             }
         }
-        return found;
-	}
+        return ans;
+    }	
+
+    int xdir[] = {-1,-1,0,1,1,1,0,-1};
+    int ydir[] = {0,1,1,1,0,-1,-1,-1};
+  
+    String pattern = "CODINGNINJAS";
     
-    private int DFS(String[] G ,int x ,int y ,int index ,int N ,int M){
-        if(index == 11){
-            return 1;
+    public static boolean valid(int x1,int y1,int N,int M){
+        if(x1 >= 0 && x1 < N && y1 >= 0 && y1 < M){
+            return true;
+        }else{
+            return false;
         }
-        
-        used[x][y] = 1;
-        int i,newx,newy;
-        int found = 0;
-        
-        for(i=0;i<8;i++){
-            newx = x + a[i][0];
-            newy = y + a[i][1];
-            
-            if(validPoint(newx,newy,N,N) == 1 && G[newx].charAt(newy) == pattern.charAt(index) && used[newx][newy] == 0){
-                found = found | DFS(G,newx,newy,index + 1,N,M);
-            }
-        }
-        used[x][y] = 0;
-        return found;
     }
     
-    private int validPoint(int x ,int y ,int N ,int M){
-        if(x >= 0 && x < N && y >=0 && y < M){
+    public int DFS(String[] Graph,int x, int y ,int count,boolean visited[][],int N,int M){
+    
+        if(count == 11){
             return 1;
         }
-        return 0;
+        
+         visited[x][y] = true;
+        int x1 = -1;
+        int y1 = -1;
+        int ans = 0;
+        
+        for(int i=0;i<8;i++){
+             x1 = x + xdir[i];
+             y1 = y + ydir[i];
+           
+            
+            if(valid(x1,y1,N,M)){
+                if(Graph[x1].charAt(y1) == pattern.charAt(count) && !visited[x1][y1]){
+                    ans = DFS(Graph,x1,y1,count+1,visited,N,M);
+                    if(ans == 1){
+                        visited[x1][y1] = false;
+                        return 1;
+                    }
+                }
+            }  
+
+        }
+        
+        visited[x][y] = false;
+        return ans;
+        
     }
     
 }
