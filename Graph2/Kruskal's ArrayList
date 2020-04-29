@@ -1,0 +1,106 @@
+
+import java.util.Scanner;
+import java.lang.Comparable;
+import java.util.ArrayList;
+import java.util.Collections;
+
+class Edge implements Comparable<Edge>{
+    int v1;
+    int v2;
+    int weight;
+    
+    Edge(int v1,int v2,int weight){
+        this.v1 = v1;
+        this.v2 = v2;
+        this.weight = weight;
+    }
+    
+    public int compareTo(Edge e){
+        if(this.weight == e.weight){
+            return 0;
+        }else if(this.weight > e.weight){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+    
+}
+
+public class Solution {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int V = s.nextInt();
+		int E = s.nextInt();
+
+        //Take input
+    ArrayList<Edge> input  = new ArrayList<>();
+       
+        for(int i=0;i<E;i++){
+            int v1 = s.nextInt();
+            int v2 = s.nextInt();
+            int weight = s.nextInt();
+            Edge obj1 = new Edge(v1,v2,weight);
+            input.add(obj1);
+        }
+        
+        
+        ArrayList<Edge> output = kruskals(input , V);
+        
+         for(int k=0;k<output.size();k++){
+            Edge obj = output.get(k);
+            if(obj.v1 < obj.v2){
+                System.out.println(obj.v1+" "+obj.v2+" "+obj.weight);
+            }else{
+                System.out.println(obj.v2+" "+obj.v1+" "+obj.weight);
+            }
+            
+        }
+    }
+    
+
+    private static ArrayList<Edge> kruskals(ArrayList<Edge> input ,int n){
+        Collections.sort(input);
+
+        int parent[] = new int[n];
+
+        for(int i=0;i<n;i++){
+            parent[i] = i;
+        }
+
+        ArrayList<Edge> output = new ArrayList<>();
+        int count = 0;
+        int i = 0;
+
+        while(count != n-1){
+
+            Edge x = input.get(i);
+            i++;
+
+            int p1 = findParent(x.v1 ,parent);
+            int p2 = findParent(x.v2 ,parent);
+
+            if(p1 != p2){
+                output.add(x);
+                count++;
+                parent[p1] = parent[p2];
+            }
+        }
+        return output;
+    }
+
+    
+    private static int findParent(int vertex ,int parent[]){
+        int parent1 = parent[vertex];
+        
+        while(vertex != parent1){
+            vertex = parent1;
+            parent1 = parent[vertex];
+            
+        }
+        
+        return vertex;
+    }
+    
+}
