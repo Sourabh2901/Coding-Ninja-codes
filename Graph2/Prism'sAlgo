@@ -70,13 +70,18 @@ public class Solution {
         
     }
     
-    private static int findminVertex(int weight[] ,boolean visited[]){
+    public static int findMinVertex(int weight[] ,boolean visited[]){
+        
        int min = -1;
+        int minweight = Integer.MAX_VALUE;
+        
         for(int i=0;i<weight.length;i++){
-            if(!visited[i] && (min == -1 || weight[i] < weight[min])){
+            if(!visited[i] && weight[i] < minweight){
+                minweight = weight[i];
                 min = i;
             }
         }
+        
         return min;
     }
     
