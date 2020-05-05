@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 class TrieNode{
 	char data;
 	boolean isTerminating;
@@ -39,53 +40,53 @@ public class Trie {
 		add(root, word);
 	}
 	
-	// public void search(String word){
-	// 	return search(root, word);
-	// }
-
-	private TrieNode findWord(TrieNode root, String word) {
-		if(word.length() <= 0){
-           // System.out.println(root.data);
-            return root;
-		}
-        
-		int childIndex = word.charAt(0) - 'a';
-		TrieNode child = root.children[childIndex];
-		if(child == null){
-			return null;
-		}
-		return findWord(child, word.substring(1));
-	}
-    
-    
+	
 	public void autoComplete(ArrayList<String> input, String word) {
 		// Complete this function
 		// Print the output as specified in question
-		Trie myTrie = new Trie();
-        for(int i = 0; i<input.size(); i++){
+        for(int i=0;i < input.size();i++){
             String str = input.get(i);
-                myTrie.add(str);
+            add(str);
         }
         
-        TrieNode ans = findWord(myTrie.root,word);
+        TrieNode ans = findWord(root ,word);
         
         if(ans != null){
-            allPossibleWords(ans,word,""); 
+            findAllPossibleWords(ans ,word ,word.length());
         }   
 	}
     
-    public static void allPossibleWords(TrieNode root,String word,String output){
-        if(root.isTerminating){
-          //  System.out.println(output+"1");
-            System.out.println(word+output);
+    private TrieNode findWord(TrieNode root ,String word){
+        if(word.length() == 0){
+            return root;
         }
         
-        for(int i=0;i<root.children.length;i++){
-            if(root.children[i] != null){
-                allPossibleWords(root.children[i],word,output+root.children[i].data);
-            }
-        }
+        int childIndex = word.charAt(0) - 'a';
+        TrieNode child = root.children[childIndex];
         
+        if(child != null){
+            return findWord(child ,word.substring(1));
+        }
+        return null;
     }
     
+    private void findAllPossibleWords(TrieNode root ,String word ,int wordlength){
+        if(root.childCount == 0){
+            if(word.length() > wordlength){
+                 System.out.println(word);
+            }
+            return;
+        }
+        
+        if(root.isTerminating){
+            System.out.println(word);
+        }
+        
+        for(int i=0;i < root.children.length;i++){
+            if(root.children[i] != null){
+                findAllPossibleWords(root.children[i] ,word + root.children[i].data ,wordlength);
+            }
+        }       
+    }
 }
+
