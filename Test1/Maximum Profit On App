@@ -1,0 +1,26 @@
+import java.util.Arrays;
+
+public class solution {
+
+	public static int maximumProfit(int budget[]) {
+		Arrays.sort(budget);
+        int n = budget.length;
+        
+        int cost[] = new int[n];
+        
+        for(int i=0;i < n;i++){
+            cost[i] = budget[i] * (n - i);
+        }
+        
+        int max = Integer.MIN_VALUE;
+        
+        for(int i:cost){
+            if(i > max){
+                max = i;
+            }
+        }
+        
+        return max;
+	}
+
+}
