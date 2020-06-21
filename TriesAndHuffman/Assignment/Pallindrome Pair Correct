@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.*;
 import java.lang.*;
@@ -17,12 +16,16 @@ class TrieNode{
     }
 }
 
+
+//TESTCASE abc dcba
+
 public class Trie {
 
     private TrieNode root;
     public int count;
     public Trie() {
         root = new TrieNode('\0');
+        count = 0;
     }
     private void add(TrieNode root, String word){
         if(word.length() == 0){
@@ -64,6 +67,14 @@ public class Trie {
             boolean b=search(root,s.get(i));
             if(b==true)
                 return true;
+            else{
+                int len = s.get(i).length() - 1;
+                String str1 = s.get(i).substring(0,len);
+                b = search(root ,str1);
+                if(b == true){
+                    return true;
+                }
+            }
         }
         
         return false;
